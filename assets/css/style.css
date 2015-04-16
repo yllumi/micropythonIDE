@@ -3,10 +3,11 @@ html, body {
 }
 
 body {
-  background-color: #fff;
+  background-color: #BDC3C7;
   font-family: sans-serif;
   margin: 0;
   overflow: hidden;
+  padding-top: 55px;
 }
 
 .farSide {
@@ -67,17 +68,19 @@ h1 {
 
 /* Tabs */
 #tabRow>td {
-  border: 1px solid #ccc;
   border-bottom: none;
+  padding: 10px 20px;
+  border-bottom-color: #43ac6a !important;
+  background-color: #43ac6a;
+  color: white;
+  font-size: 15px;
 }
 td.tabon {
-  border-bottom-color: #ddd !important;
-  background-color: #ddd;
-  padding: 5px 19px;
 }
 td.taboff {
   cursor: pointer;
-  padding: 5px 19px;
+  opacity: 0.45;
+  filter: alpha(opacity=45);
 }
 td.taboff:hover {
   background-color: #eee;
@@ -136,8 +139,7 @@ pre.content {
 }
 #languageMenu {
   vertical-align: top;
-  margin-top: 15px;
-  margin-right: 15px;
+  /*margin-left: 5px;*/
 }
 
 /* Buttons */
@@ -160,4 +162,54 @@ button {
 }
 .run {
   background-position: -42px 0px;
+}
+
+/** HEADER **/
+.navbar-inverse {
+  min-height: 0;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover {
+  color: #fff;
+}
+.wrapper {
+  width: 100%;
+}
+.terminal,
+.code-content {
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+}
+.code-content {
+  left: 0;
+  width: 55%;
+}
+.terminal {
+  background: #333;
+  right: 0;
+  width: 45%;
+}
+#tabRow td {
+  visibility: hidden;
+}
+#tab_xml {
+  display: none;
+}
+.blocklyTreeRow {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: auto !important;
+}
+.blocklyTreeRow:hover {
+  background-color: #e99002 !important;
+}
+.blocklyTreeSelected {
+  background-color: #d08002 !important;
+}
+.blocklyTreeRoot {
+  padding: 0 !important; 
+}
+.blocklyFlyoutBackground {
+  fill-opacity: 0.6 !important;
 }

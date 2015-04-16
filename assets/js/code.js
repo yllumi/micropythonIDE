@@ -330,26 +330,13 @@ Code.renderContent = function() {
 Code.init = function() {
   Code.initLanguage();
 
-  // Disable the link button if page isn't backed by App Engine storage.
-  var linkButton = document.getElementById('linkButton');
-  if ('BlocklyStorage' in window) {
-    BlocklyStorage['HTTPREQUEST_ERROR'] = MSG['httpRequestError'];
-    BlocklyStorage['LINK_ALERT'] = MSG['linkAlert'];
-    BlocklyStorage['HASH_ERROR'] = MSG['hashError'];
-    BlocklyStorage['XML_ERROR'] = MSG['xmlError'];
-    Code.bindClick(linkButton, BlocklyStorage.link);
-  } else if (linkButton) {
-    linkButton.className = 'disabled';
-  }
-
   var rtl = Code.isRtl();
   var container = document.getElementById('content_area');
   var onresize = function(e) {
     var bBox = Code.getBBox_(container);
     for (var i = 0; i < Code.TABS_.length; i++) {
       var el = document.getElementById('content_' + Code.TABS_[i]);
-      el.style.top = bBox.y + 'px';
-      el.style.left = bBox.x + 'px';
+      el.style.top = '42px';
       // Height and width need to be set, read back, then set again to
       // compensate for scrollbars.
       el.style.height = bBox.height + 'px';
@@ -386,10 +373,6 @@ Code.init = function() {
 
   Code.tabClick(Code.selected);
   Blockly.fireUiEvent(window, 'resize');
-
-  Code.bindClick('trashButton',
-      function() {Code.discard(); Code.renderContent();});
-  Code.bindClick('runButton', Code.runJS);
 
   for (var i = 0; i < Code.TABS_.length; i++) {
     var name = Code.TABS_[i];
@@ -439,13 +422,7 @@ Code.initLanguage = function() {
   languageMenu.addEventListener('change', Code.changeLanguage, true);
 
   // Inject language strings.
-  document.title += ' ' + MSG['title'];
-  document.getElementById('title').textContent = MSG['title'];
   document.getElementById('tab_blocks').textContent = MSG['blocks'];
-
-  document.getElementById('linkButton').title = MSG['linkTooltip'];
-  document.getElementById('runButton').title = MSG['runTooltip'];
-  document.getElementById('trashButton').title = MSG['trashTooltip'];
 
   var categories = ['catLogic', 'catLoops', 'catMath', 'catText', 'catLists',
                     'catColour', 'catVariables', 'catFunctions'];
