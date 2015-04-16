@@ -8,9 +8,9 @@
     "toolbar": false,
     "frame": false,
     "position": "center",
-    "width": 800,
-    "height": 600,
-    "min_width": 220,
-    "min_height": 220
+    "width": 1024,
+    "height": 768,
+    "min_width": 800,
+    "min_height": 600
   }
 }

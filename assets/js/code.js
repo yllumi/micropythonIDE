@@ -457,3 +457,15 @@ document.write('<script src="assets/msg/' + Code.LANG + '.js"></script>\n');
 document.write('<script src="vendor/blockly/msg/js/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);
+
+// Load native UI library
+var gui = require('nw.gui'); //or global.window.nwDispatcher.requireNwGui() (see https://github.com/rogerwang/node-webkit/issues/707)
+
+// Get the current window
+var win = gui.Window.get();
+
+win.on('close', function() {
+  this.hide(); // Pretend to be closed already
+  console.log("We're closing...");
+  this.close(true);
+});

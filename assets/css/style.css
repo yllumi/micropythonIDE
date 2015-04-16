@@ -214,10 +214,11 @@ button {
   fill-opacity: 0.6 !important;
 }
 .btn-icon {
-  width: 42px;
+  width: 44px;
   height: 42px;
   border: 0;
   margin-left: -4px;
+  -webkit-app-region: no-drag;
 }
 .btn-white {
   color: white;
@@ -225,5 +226,19 @@ button {
 .form-icon {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
+}
+.btn-save,
+.btn-run,
+.btn-connect {
+  width: 45px;
+  height: 45px;
+}
+.btn-close:hover {
+  color: pink;
+}
+.navbar>.container-fluid .navbar-brand {
+  margin-left: -15px;
+  padding-right: 20px;
+  background: rgb(0, 95, 126);
 }
