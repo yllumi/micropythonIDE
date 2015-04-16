@@ -213,3 +213,17 @@ button {
 .blocklyFlyoutBackground {
   fill-opacity: 0.6 !important;
 }
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  margin-left: -4px;
+}
+.btn-white {
+  color: white;
+}
+.form-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

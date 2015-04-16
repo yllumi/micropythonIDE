@@ -5,8 +5,10 @@
 	<title>Micropython IDE</title>
 
 	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-yeti.min.css">
+	<link rel="stylesheet" href="assets/fonts/flaticon.css">
 	<link rel="stylesheet" href="assets/css/style.css">
-	
+
+	<script src="vendor/blockly/appengine/storage.js"></script>	
 	<script src="vendor/blockly/blockly_compressed.js"></script>
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
@@ -19,17 +21,37 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Micropython IDE</a>
 			</div>
+			<div class="form-group navbar-right" style="margin:0;margin-right:-10px">
+				<a href="#" class="btn btn-xs btn-icon btn-white" title="maximize">
+					<span class="flaticon-expand42"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-white" title="close">
+					<span class="flaticon-cancel30"></span>
+				</a>
+			</div>
 		</div>
 	</nav>
 
 	<div class="wrapper">
 		<div class="code-content">
 			<div class="navbar-form">
-				<div class="form-group pull-right">
-					<a href="#" class="btn btn-xs btn-success"><i class="fa fa-code"></i> Show Code</a>
+				<div class="form-group pull-left">
 					<select id="languageMenu" class="form-control"></select>
 				</div>
 			</div>
+
+			<div class="form-group pull-right form-icon">
+				<a href="#" class="btn btn-xs btn-icon btn-default" title="show code">
+					<span class="flaticon-right58"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-info" title="connect">
+					<span class="flaticon-plug24"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-danger" title="run program">
+					<span class="flaticon-media23"></span>
+				</a>
+			</div>
+
 
 			<table width="100%" height="100%">
 				<tr>
@@ -53,7 +75,7 @@
 		</div>
 
 		<div class="terminal">
-			
+
 		</div>
 	</div>
 

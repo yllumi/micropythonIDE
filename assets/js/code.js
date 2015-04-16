@@ -336,7 +336,7 @@ Code.init = function() {
     var bBox = Code.getBBox_(container);
     for (var i = 0; i < Code.TABS_.length; i++) {
       var el = document.getElementById('content_' + Code.TABS_[i]);
-      el.style.top = '42px';
+      el.style.top = '41px';
       // Height and width need to be set, read back, then set again to
       // compensate for scrollbars.
       el.style.height = bBox.height + 'px';
