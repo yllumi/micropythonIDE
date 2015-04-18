@@ -1,3 +1,5 @@
+/* SERIAL*/
+
 const serial = chrome.serial;
 
 /* Interprets an ArrayBuffer as UTF-8 encoded string data. */
@@ -89,8 +91,11 @@ SerialConnection.prototype.disconnect = function() {
 
 
 function log(msg) {
-	var buffer = document.querySelector('.terminal');
-	buffer.innerHTML = msg;
+	$('.terminal').append('<p>'+ msg +'</p>');
+	var div = $('.terminal');
+	div.scrollTop( div.get(0).scrollHeight );
+	if(div.children().length > 50)
+		div.children().first().remove();
 }
 
 
@@ -123,15 +128,14 @@ connection.getDevices(function(ports) {
 	ports.forEach(function (port) {
 		var displayName = port["displayName"] + "("+port.path+")";
 		if (!displayName) displayName = port.path;
-		dropDown.append('<li role="presentation"><a role="menuitem" tabindex="-1" data-path="'+port.path+'">'+displayName+'</a></li>');
+		dropDown.append('<li role="presentation"><a role="menuitem" class="serialport" tabindex="-1" data-path="'+port.path+'">'+displayName+'</a></li>');
 	});
 });
 
 // Handle the 'Connect' button
-document.querySelector('#connect_button').addEventListener('click', function() {
+$(document).on('click', '.serialport', function() {	
 	// get the device to connect to
-	var dropDown = document.querySelector('#port_list');
-	var devicePath = dropDown.options[dropDown.selectedIndex].value;
+	var devicePath = $(this).data('path');
 	// connect
 	log("Connecting to "+devicePath);
 	connection.connect(devicePath);
@@ -140,24 +144,18 @@ document.querySelector('#connect_button').addEventListener('click', function() {
 ////////////////////////////////////////////////////////
 
 // Toggle LED state
-var is_on = false;
-document.querySelector('#toggle').addEventListener('click', function() {
-	is_on = !is_on;
-	connection.send("pyb.USB_VCP.setinterrupt(3)\n");
-});
-
-// Flash 3 times
-document.querySelector('#flash').addEventListener('click', function() {
-	connection.send("pyb.LED(2).on(); pyb.delay(1000); pyb.LED(2).off();\n");
-});
-
-// Get temperature
-document.querySelector('#get_temperature').addEventListener('click', function() {
-	connection.send("console.log('TEMPERATURE='+E.getTemperature().toFixed(1));\n");
-});
+// var is_on = false;
+// document.querySelector('#toggle').addEventListener('click', function() {
+// 	is_on = !is_on;
+// 	connection.send("pyb.USB_VCP.setinterrupt(3)\n");
+// });
 
 $(function(){
-	$('.btn-close').click(function(){
+	$(document).on('click', '.btn-close', function(){
 		window.close();
 	});
 });
+
+/* BLOCKLY */
+// Blockly.inject(document.getElementById('blocklyDiv'),
+// 			{toolbox: document.getElementById('toolbox')} );

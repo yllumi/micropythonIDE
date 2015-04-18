@@ -202,6 +202,14 @@ button {
 	right: 2px;
 	width: 45%;
 	border: 5px solid white;
+	color: white;
+	padding: 5px;
+	font-family: Courier;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.terminal p {
+	margin-bottom: 2px;
 }
 #tabRow td {
 	visibility: hidden;
