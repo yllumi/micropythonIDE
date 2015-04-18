@@ -11,20 +11,21 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
 	font-family: Flaticon;
-        font-size: 21px;
+        font-size: 24px;
 font-style: normal;
 }.flaticon-cancel30:before {
 	content: "\e000";
 }
 .flaticon-connected:before {
 	content: "\e001";
-	font-size: 26px;
-	line-height: 33px;
+	font-size: 29px;
+	line-height: 37px;
+	color: rgb(59, 211, 102);
 }
 .flaticon-disconnected:before {
 	content: "\e002";
-	font-size: 26px;
-	line-height: 33px;
+	font-size: 29px;
+	line-height: 37px;
 }
 .flaticon-expand42:before {
 	content: "\e003";

@@ -2,43 +2,32 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Micropython IDE</title>
+	<title>Micropython Web IDE</title>
 
 	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-yeti.min.css">
 	<link rel="stylesheet" href="assets/fonts/flaticon.mod.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 
-	<script src="vendor/jquery/jquery-2.1.3.min.js"></script>	
-	<script src="vendor/jquery/jquery-migrate-1.2.1.min.js"></script>	
-	<script src="vendor/blockly/appengine/storage.js"></script>	
+	<script src="vendor/jquery/jquery-2.1.3.min.js"></script>
+	<script src="vendor/jquery/jquery-migrate-1.2.1.min.js"></script>
+
 	<script src="vendor/blockly/blockly_compressed.js"></script>
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
-	<script src="assets/js/code.js"></script>
+	<script src="vendor/blockly/msg/js/en.js"></script>
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top" style="-webkit-app-region: drag;">
+	<nav class="navbar navbar-inverse" style="-webkit-app-region: drag;">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Micropython IDE</a>
+				<a class="navbar-brand" href="#">Micropython Web IDE</a>
 			</div>
-			<div class="form-group navbar-left" style="margin:0;margin-right:-10px">
-				<a href="#" class="btn btn-xs btn-icon btn-default btn-connect" title="connect">
-					<span class="flaticon-disconnected"></span>
-				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-info btn-save" title="save code">
-					<span class="flaticon-save31"></span>
-				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-warning btn-run" title="run program">
-					<span class="flaticon-media23"></span>
-				</a>
-			</div>
-			<div class="form-group navbar-right" style="margin:0;margin-right:-10px">
-				<a href="#" class="btn btn-xs btn-icon btn-white" title="maximize" onclick="win.maximize()">
+			<div class="form-group pull-right form-icon-topbar">
+				<a href="#" class="btn btn-xs btn-icon btn-expand" title="maximize">
 					<span class="flaticon-expand42"></span>
 				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-white btn-close" title="close" onclick="win.close()">
+				<a href="#" class="btn btn-xs btn-icon btn-close" title="close">
 					<span class="flaticon-cancel30"></span>
 				</a>
 			</div>
@@ -47,40 +36,28 @@
 
 	<div class="wrapper">
 		<div class="code-content">
-			<div class="form-group pull-left form-icon">
-				<a href="#" class="btn btn-xs btn-icon btn-blockmode" title="switch to block mode">
+			<div class="form-group form-icon-top">
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-connect" title="connect">
+					<span class="flaticon-connected"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-info btn-save" title="save code">
+					<span class="flaticon-save31"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-warning btn-run" title="run program">
+					<span class="flaticon-media23"></span>
+				</a>
+			</div>
+
+			<div class="form-group form-icon-bottom">
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-blockmode" title="switch to block mode">
 					<span class="flaticon-puzzle-piece1"></span>
 				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-codemode" title="switch to python mode">
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
 					<span class="flaticon-right58"></span>
 				</a>
 			</div>
 
-			<div class="navbar-form">
-				<div class="form-group pull-right">
-					<select id="languageMenu" class="form-control"></select>
-				</div>
-			</div>
-
-			<table width="100%" height="100%">
-				<tr>
-					<td colspan=2>
-						<table width="100%">
-							<tr id="tabRow" height="1em">
-								<td id="tab_blocks" class="tabon">...</td>
-								<td id="tab_python" class="taboff">Python</td>
-								<td id="tab_xml" class="taboff">XML</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td height="99%" colspan=2 id="content_area"></td>
-				</tr>
-			</table>
-			<div id="content_blocks" class="content"></div>
-			<pre id="content_python" class="content"></pre>
-			<textarea id="content_xml" class="content" wrap="off"></textarea>
+			<div id="blocklyDiv"></div>
 		</div>
 
 		<div class="terminal">
@@ -88,10 +65,15 @@
 		</div>
 	</div>
 
-
 	<xml id="toolbox" style="display: none">
-		<category id="catLogic">
+		<category name="Logic">
 			<block type="controls_if"></block>
+			<block type="controls_if">
+				<mutation else="1"></mutation>
+			</block>
+			<block type="controls_if">
+				<mutation elseif="1" else="1"></mutation>
+			</block>			
 			<block type="logic_compare"></block>
 			<block type="logic_operation"></block>
 			<block type="logic_negate"></block>
@@ -99,7 +81,7 @@
 			<block type="logic_null"></block>
 			<block type="logic_ternary"></block>
 		</category>
-		<category id="catLoops">
+		<category name="Loops">
 			<block type="controls_repeat_ext">
 				<value name="TIMES">
 					<block type="math_number">
@@ -109,6 +91,7 @@
 			</block>
 			<block type="controls_whileUntil"></block>
 			<block type="controls_for">
+				<field name="VAR">i</field>
 				<value name="FROM">
 					<block type="math_number">
 						<field name="NUM">1</field>
@@ -128,7 +111,7 @@
 			<block type="controls_forEach"></block>
 			<block type="controls_flow_statements"></block>
 		</category>
-		<category id="catMath">
+		<category name="Math">
 			<block type="math_number"></block>
 			<block type="math_arithmetic"></block>
 			<block type="math_single"></block>
@@ -171,47 +154,7 @@
 			</block>
 			<block type="math_random_float"></block>
 		</category>
-		<category id="catText">
-			<block type="text"></block>
-			<block type="text_join"></block>
-			<block type="text_append">
-				<value name="TEXT">
-					<block type="text"></block>
-				</value>
-			</block>
-			<block type="text_length"></block>
-			<block type="text_isEmpty"></block>
-			<block type="text_indexOf">
-				<value name="VALUE">
-					<block type="variables_get">
-						<field name="VAR" class="textVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="text_charAt">
-				<value name="VALUE">
-					<block type="variables_get">
-						<field name="VAR" class="textVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="text_getSubstring">
-				<value name="STRING">
-					<block type="variables_get">
-						<field name="VAR" class="textVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="text_changeCase"></block>
-			<block type="text_trim"></block>
-			<block type="text_print"></block>
-			<block type="text_prompt_ext">
-				<value name="TEXT">
-					<block type="text"></block>
-				</value>
-			</block>
-		</category>
-		<category id="catLists">
+		<category name="Lists">
 			<block type="lists_create_empty"></block>
 			<block type="lists_create_with"></block>
 			<block type="lists_repeat">
@@ -223,84 +166,215 @@
 			</block>
 			<block type="lists_length"></block>
 			<block type="lists_isEmpty"></block>
-			<block type="lists_indexOf">
-				<value name="VALUE">
-					<block type="variables_get">
-						<field name="VAR" class="listVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_getIndex">
-				<value name="VALUE">
-					<block type="variables_get">
-						<field name="VAR" class="listVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_setIndex">
-				<value name="LIST">
-					<block type="variables_get">
-						<field name="VAR" class="listVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_getSublist">
-				<value name="LIST">
-					<block type="variables_get">
-						<field name="VAR" class="listVar">...</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_split">
-				<value name="DELIM">
-					<block type="text">
-						<field name="TEXT">,</field>
-					</block>
-				</value>
-			</block>
+			<block type="lists_indexOf"></block>
+			<block type="lists_getIndex"></block>
+			<block type="lists_setIndex"></block>
 		</category>
-		<category id="catColour">
-			<block type="colour_picker"></block>
-			<block type="colour_random"></block>
-			<block type="colour_rgb">
-				<value name="RED">
-					<block type="math_number">
-						<field name="NUM">100</field>
-					</block>
-				</value>
-				<value name="GREEN">
-					<block type="math_number">
-						<field name="NUM">50</field>
-					</block>
-				</value>
-				<value name="BLUE">
-					<block type="math_number">
-						<field name="NUM">0</field>
-					</block>
-				</value>
-			</block>
-			<block type="colour_blend">
-				<value name="COLOUR1">
-					<block type="colour_picker">
-						<field name="COLOUR">#ff0000</field>
-					</block>
-				</value>
-				<value name="COLOUR2">
-					<block type="colour_picker">
-						<field name="COLOUR">#3333ff</field>
-					</block>
-				</value>
-				<value name="RATIO">
-					<block type="math_number">
-						<field name="NUM">0.5</field>
-					</block>
-				</value>
-			</block>
-		</category>
+		<category name="Variables" custom="VARIABLE"></category>
+		<category name="Functions" custom="PROCEDURE"></category>
 		<sep></sep>
-		<category id="catVariables" custom="VARIABLE"></category>
-		<category id="catFunctions" custom="PROCEDURE"></category>
+		<category name="Randomize">
+			<block type="procedures_defnoreturn">
+				<mutation>
+					<arg name="list"></arg>
+				</mutation>
+				<field name="NAME">randomize</field>
+				<statement name="STACK">
+					<block type="controls_for" inline="true">
+						<field name="VAR">x</field>
+						<value name="FROM">
+							<block type="math_number">
+								<field name="NUM">1</field>
+							</block>
+						</value>
+						<value name="TO">
+							<block type="lists_length" inline="false">
+								<value name="VALUE">
+									<block type="variables_get">
+										<field name="VAR">list</field>
+									</block>
+								</value>
+							</block>
+						</value>
+						<value name="BY">
+							<block type="math_number">
+								<field name="NUM">1</field>
+							</block>
+						</value>
+						<statement name="DO">
+							<block type="variables_set" inline="false">
+								<field name="VAR">y</field>
+								<value name="VALUE">
+									<block type="math_random_int" inline="true">
+										<value name="FROM">
+											<block type="math_number">
+												<field name="NUM">1</field>
+											</block>
+										</value>
+										<value name="TO">
+											<block type="lists_length" inline="false">
+												<value name="VALUE">
+													<block type="variables_get">
+														<field name="VAR">list</field>
+													</block>
+												</value>
+											</block>
+										</value>
+									</block>
+								</value>
+								<next>
+									<block type="variables_set" inline="false">
+										<field name="VAR">temp</field>
+										<value name="VALUE">
+											<block type="lists_getIndex" inline="true">
+												<mutation statement="false" at="true"></mutation>
+												<field name="MODE">GET</field>
+												<field name="WHERE">FROM_START</field>
+												<value name="AT">
+													<block type="variables_get">
+														<field name="VAR">y</field>
+													</block>
+												</value>
+												<value name="VALUE">
+													<block type="variables_get">
+														<field name="VAR">list</field>
+													</block>
+												</value>
+											</block>
+										</value>
+										<next>
+											<block type="lists_setIndex" inline="false">
+												<value name="AT">
+													<block type="variables_get">
+														<field name="VAR">y</field>
+													</block>
+												</value>
+												<value name="LIST">
+													<block type="variables_get">
+														<field name="VAR">list</field>
+													</block>
+												</value>
+												<value name="TO">
+													<block type="lists_getIndex" inline="true">
+														<mutation statement="false" at="true"></mutation>
+														<field name="MODE">GET</field>
+														<field name="WHERE">FROM_START</field>
+														<value name="AT">
+															<block type="variables_get">
+																<field name="VAR">x</field>
+															</block>
+														</value>
+														<value name="VALUE">
+															<block type="variables_get">
+																<field name="VAR">list</field>
+															</block>
+														</value>
+													</block>
+												</value>
+												<next>
+													<block type="lists_setIndex" inline="false">
+														<value name="AT">
+															<block type="variables_get">
+																<field name="VAR">x</field>
+															</block>
+														</value>
+														<value name="LIST">
+															<block type="variables_get">
+																<field name="VAR">list</field>
+															</block>
+														</value>
+														<value name="TO">
+															<block type="variables_get">
+																<field name="VAR">temp</field>
+															</block>
+														</value>
+													</block>
+												</next>
+											</block>
+										</next>
+									</block>
+								</next>
+							</block>
+						</statement>
+					</block>
+				</statement>
+			</block>
+		</category>
+		<category name="Jabberwocky">
+			<block type="text_print">
+				<value name="TEXT">
+					<block type="text">
+						<field name="TEXT">'Twas brillig, and the slithy toves</field>
+					</block>
+				</value>
+				<next>
+					<block type="text_print">
+						<value name="TEXT">
+							<block type="text">
+								<field name="TEXT">  Did gyre and gimble in the wabe:</field>
+							</block>
+						</value>
+						<next>
+							<block type="text_print">
+								<value name="TEXT">
+									<block type="text">
+										<field name="TEXT">All mimsy were the borogroves,</field>
+									</block>
+								</value>
+								<next>
+									<block type="text_print">
+										<value name="TEXT">
+											<block type="text">
+												<field name="TEXT">  And the mome raths outgrabe.</field>
+											</block>
+										</value>
+									</block>
+								</next>
+							</block>
+						</next>
+					</block>
+				</next>
+			</block>
+			<block type="text_print">
+				<value name="TEXT">
+					<block type="text">
+						<field name="TEXT">"Beware the Jabberwock, my son!</field>
+					</block>
+				</value>
+				<next>
+					<block type="text_print">
+						<value name="TEXT">
+							<block type="text">
+								<field name="TEXT">  The jaws that bite, the claws that catch!</field>
+							</block>
+						</value>
+						<next>
+							<block type="text_print">
+								<value name="TEXT">
+									<block type="text">
+										<field name="TEXT">Beware the Jubjub bird, and shun</field>
+									</block>
+								</value>
+								<next>
+									<block type="text_print">
+										<value name="TEXT">
+											<block type="text">
+												<field name="TEXT">  The frumious Bandersnatch!"</field>
+											</block>
+										</value>
+									</block>
+								</next>
+							</block>
+						</next>
+					</block>
+				</next>
+			</block>
+		</category>
 	</xml>
 
-</body>
-</html>
+	<script>
+		Blockly.inject(document.getElementById('blocklyDiv'),
+			{toolbox: document.getElementById('toolbox')} );
+	</script>
+	</body>
+	</html>
