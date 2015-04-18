@@ -1,15 +1,17 @@
 {
-  "manifest_version": 2,
-  "name": "Micropython IDE",
-  "version": "2.1",
-  "minimum_chrome_version": "23",
-  "icons": {
-    "16": "icon_16.png",
-    "128": "icon_128.png"
-  },
-  "app": {
-    "background": {
-      "scripts": ["main.js"]
-    }
-  }
+	"name": "Micropython IDE",
+	"version": "1.0",
+	"manifest_version": 2,
+	"permissions": ["serial"],
+	"minimum_chrome_version": "23",
+	"icons": {
+		"16": "icon_16.png",
+		"128": "icon_128.png"
+	},
+	"app": {
+		"background": {
+			"scripts": ["launch.js"],
+			"transient": true
+		}
+	}
 }

@@ -10,18 +10,21 @@
 
 	<script src="vendor/jquery/jquery-2.1.3.min.js"></script>
 	<script src="vendor/jquery/jquery-migrate-1.2.1.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
 	<script src="vendor/blockly/blockly_compressed.js"></script>
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
 	<script src="vendor/blockly/msg/js/en.js"></script>
+
+	<script src="assets/js/main.js"></script>
 </head>
 <body>
 
 	<nav class="navbar navbar-inverse" style="-webkit-app-region: drag;">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Micropython Web IDE</a>
+				<span class="navbar-brand">Micropython Web IDE</span>
 			</div>
 			<div class="form-group pull-right form-icon-topbar">
 				<a href="#" class="btn btn-xs btn-icon btn-expand" title="maximize">
@@ -35,11 +38,19 @@
 	</nav>
 
 	<div class="wrapper">
+
 		<div class="code-content">
+			
 			<div class="form-group form-icon-top">
-				<a href="#" class="btn btn-xs btn-icon btn-default btn-connect" title="connect">
-					<span class="flaticon-connected"></span>
-				</a>
+				<div class="dropdown">	
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-xs btn-icon btn-default btn-connect" title="connect" style="margin-bottom:5px;">
+						<span class="flaticon-disconnected"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">no port</a></li>
+					</ul>
+				</div>
+
 				<a href="#" class="btn btn-xs btn-icon btn-info btn-save" title="save code">
 					<span class="flaticon-save31"></span>
 				</a>
@@ -60,9 +71,12 @@
 			<div id="blocklyDiv"></div>
 		</div>
 
-		<div class="terminal">
+		<!-- <div id="connect_box" style="position: absolute; right : 0; top: 60px; z-index: 100;">
+			<select id="port_list"><option>Please Wait...</option></select>
+			<button id="connect_button">Connect</button>
+		</div> -->
 
-		</div>
+		<div class="terminal"></div>
 	</div>
 
 	<xml id="toolbox" style="display: none">
@@ -375,6 +389,6 @@
 	<script>
 		Blockly.inject(document.getElementById('blocklyDiv'),
 			{toolbox: document.getElementById('toolbox')} );
-	</script>
+		</script>
 	</body>
 	</html>

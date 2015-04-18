@@ -188,6 +188,15 @@ button {
 	width: 55%;
 	border: 5px solid white;
 }
+.code-content .dropdown-menu {
+	top: 0;
+	left: 101%;
+}
+.code-content .dropdown-menu>li>a {
+	padding: 5px 10px;
+	font-size: 15px;
+}
+
 .terminal {
 	background: rgb(78, 95, 116);
 	right: 2px;
@@ -270,8 +279,8 @@ button {
 	margin-left: -15px;
 	color: #444;
 	font-size: 16px;
-  padding: 3px 0 0 30px;
-  background: url(../../icon_16.png) no-repeat 7px 5px;
+	padding: 3px 0 0 30px;
+	background: url(../../icon_16.png) no-repeat 7px 5px;
 }
 #blocklyDiv {
 	position: absolute;
