@@ -92,7 +92,49 @@ SerialConnection.prototype.disconnect = function() {
 
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
+//// READ AND WRITE TO FILE ////////////////////////////
 
+var chosenFileEntry = null;
+
+function errorHandler(e) {
+  console.error(e);
+}
+
+// open file
+$(document).on('click', '.btn-flash', function(e){
+	chrome.fileSystem.chooseEntry({type: 'openFile'}, function(readOnlyEntry) {
+
+		readOnlyEntry.file(function(file) {
+			var reader = new FileReader();
+
+			reader.onerror = errorHandler;
+			reader.onloadend = function(e) {
+				$('#code-editor').children('textarea').html(e.target.result);
+			};
+
+			reader.readAsText(file);
+		});
+
+		chosenFileEntry = readOnlyEntry;
+	});
+});
+
+// save file
+$(document).on('click', '.btn-save', function(e){
+	chrome.fileSystem.getWritableEntry(chosenFileEntry, function(writableFileEntry) {
+		writableFileEntry.createWriter(function(writer) {
+			writer.onerror = errorHandler;
+			writer.onwriteend = callback;
+
+			chosenFileEntry.file(function(file) {
+				writer.write(file);
+			});
+		}, errorHandler);
+	});
+});
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 
 function log(msg) {
 	$('.terminal').append('<p>'+ msg +'</p>');

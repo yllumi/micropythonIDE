@@ -2,7 +2,7 @@
 	"name": "Micropython IDE",
 	"version": "1.0",
 	"manifest_version": 2,
-	"permissions": ["serial"],
+	"permissions": ["serial","fileSystem","storage"],
 	"minimum_chrome_version": "23",
 	"icons": {
 		"16": "icon_16.png",
