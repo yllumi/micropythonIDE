@@ -35,6 +35,10 @@ var SerialConnection = function() {
 SerialConnection.prototype.onConnectComplete = function(connectionInfo) {
 	if (!connectionInfo) {
 		log("Connection failed.");
+		
+		$('.btn-disconnect').addClass('btn-connect').removeClass('btn-disconnect')
+		.attr('title', 'Click and choose serial path to connect').html('<span class="flaticon-disconnected"></span>');
+
 		return;
 	}
 	this.connectionId = connectionInfo.connectionId;
@@ -96,6 +100,10 @@ function log(msg) {
 	div.scrollTop( div.get(0).scrollHeight );
 	if(div.children().length > 50)
 		div.children().first().remove();
+
+	var widthbar = parseInt(msg)/4095 * 100;
+	$('#progress1').children('.progress-bar').attr('aria-valuenow', parseInt(msg)).attr('aria-valuemin', 0).attr('aria-valuemax', 4095).css('width', widthbar+'%');
+	$('#progress1').children('.progress-bar').children('.sr-only').html(parseInt(msg));
 }
 
 
@@ -157,6 +165,7 @@ $(function(){
 		window.close();
 	});
 
+	// when button stop clicked
 	$(document).on('click', '.btn-stop', function(){
 		connection.send('\x03');
 		connection.send('\x03');
@@ -166,12 +175,30 @@ $(function(){
 		.attr('title', 'Stop program').html('<span class="flaticon-run"></span>');
 	});
 
+	// when button run clicked
 	$(document).on('click', '.btn-run', function(){
 		connection.send('\x04');
 
 		$('.btn-run').addClass('btn-stop').removeClass('btn-run')
 		.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
 	});
+
+	// when one of output panel button clicked
+	$(document).on('click', '.btn-repl', function(){
+		$('.btn-output').addClass('btn-default').removeClass('btn-info');
+		$('.output-panel').children('.output-panel-child').hide();
+
+		$(this).addClass('btn-info').removeClass('btn-default');
+		$('.terminal').show();
+	});
+	$(document).on('click', '.btn-bar', function(){
+		$('.btn-output').addClass('btn-default').removeClass('btn-info');
+		$('.output-panel').children('.output-panel-child').hide();
+
+		$(this).addClass('btn-info').removeClass('btn-default');
+		$('.bar').show();
+	});
+
 });
 
 /* BLOCKLY */

@@ -38,7 +38,13 @@
 	<div class="wrapper">
 
 		<div class="code-content">
+			<!-- code editor -->
+			<div id="code-editor"></div>
 			
+			<!-- blockly editor -->
+			<div id="blocklyDiv"></div>
+
+			<!-- middle toolbar -->
 			<div class="form-group form-icon-top">
 				<div class="dropdown">	
 					<a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-xs btn-icon btn-default btn-connect" title="Click and choose port to connect" style="margin-bottom:5px;">
@@ -49,32 +55,48 @@
 					</ul>
 				</div>
 
-				<a href="#" class="btn btn-xs btn-icon btn-info btn-save" title="save code">
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-flash" title="Open pyboard flash storage">
+					<span class="flaticon-usb-off"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-save" title="save code"style="margin-bottom:5px;">
 					<span class="flaticon-save"></span>
 				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-warning btn-run" title="run program">
+
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
+					<span class="flaticon-python3"></span>
+				</a>
+				<a href="#" class="btn btn-xs btn-icon btn-default btn-run" title="run program">
 					<span class="flaticon-run"></span>
 				</a>
 			</div>
 
+			<!-- output panel tab -->
 			<div class="form-group form-icon-bottom">
-				<a href="#" class="btn btn-xs btn-icon btn-default btn-blockmode" title="switch to block mode">
-					<span class="flaticon-blockly"></span>
+				<a href="#" class="btn btn-xs btn-icon btn-output btn-info btn-repl" title="text output">
+					<span class="flaticon-repl"></span>
 				</a>
-				<a href="#" class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
-					<span class="flaticon-python3"></span>
+				<a href="#" class="btn btn-xs btn-icon btn-output btn-default btn-bar" title="bar output">
+					<span class="flaticon-bar"></span>
 				</a>
 			</div>
 
-			<div id="blocklyDiv"></div>
 		</div>
 
-		<!-- <div id="connect_box" style="position: absolute; right : 0; top: 60px; z-index: 100;">
-			<select id="port_list"><option>Please Wait...</option></select>
-			<button id="connect_button">Connect</button>
-		</div> -->
+		<div class="output-panel">
+			<div class="output-panel-child terminal"></div>
 
-		<div class="terminal"></div>
+			<div class="output-panel-child bar" style="display:none">
+				<div class="adc-bar" id="adc1">
+					<div class="caption">ADC Output</div>
+					<div class="progress" id="progress1">
+						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+							<span class="sr-only">0</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
 
 	<xml id="toolbox" style="display: none">

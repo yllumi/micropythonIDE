@@ -177,13 +177,10 @@ button {
 .wrapper {
 	width: 100%;
 }
-.terminal,
 .code-content {
 	position: absolute;
 	top: 45px;
 	bottom: 2px;
-}
-.code-content {
 	left: 2px;
 	width: 55%;
 	border: 5px solid white;
@@ -197,20 +194,6 @@ button {
 	font-size: 15px;
 }
 
-.terminal {
-	background: rgb(78, 95, 116);
-	right: 2px;
-	width: 45%;
-	border: 5px solid white;
-	color: white;
-	padding: 5px;
-	font-family: Courier;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-.terminal p {
-	margin-bottom: 2px;
-}
 #tabRow td {
 	visibility: hidden;
 }
@@ -290,10 +273,78 @@ button {
 	padding: 3px 0 0 30px;
 	background: url(../../icon_16.png) no-repeat 7px 5px;
 }
+
+/*input panel*/
 #blocklyDiv {
 	position: absolute;
 	bottom: 0;
 	top: 0;
 	left: 0;
 	right: 50px;
+}
+#code-editor {
+	border: 1px solid #ddd;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 50px;
+}
+
+/*output panel*/
+.output-panel {
+	position: absolute;
+	width: 45%;
+	top: 45px;
+	bottom: 2px;
+	right: 2px;
+}
+.terminal {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	background: rgb(78, 95, 116);
+	border: 5px solid white;
+	color: white;
+	padding: 5px;
+	font-family: Courier;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.terminal p {
+	margin-bottom: 2px;
+}
+.bar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	background-color: #eee;
+	border: 5px solid white;
+	padding: 5px;
+}
+.bar .progress {
+	height: 35px;
+}
+.bar .progress .sr-only {
+	position: relative;
+	line-height: 30px;
+	text-align: right;
+	display: block;
+	width: auto;
+	height: auto;
+	margin-right: 5px;
+}
+.bar .adc-bar {
+	margin: 20px 10px;
+}
+.bar .adc-bar .caption {
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 10px;
 }

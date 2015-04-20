@@ -14,30 +14,45 @@
         font-size: 20px;
 font-style: normal;
 margin-left: 20px;
-}.flaticon-close:before {
+}.flaticon-cancel30:before {
 	content: "\e000";
 }
-.flaticon-connected:before {
+.flaticon-computer248:before {
 	content: "\e001";
 }
-.flaticon-disconnected:before {
+.flaticon-computer44:before {
 	content: "\e002";
 }
-.flaticon-maximize:before {
+.flaticon-equalizer33:before {
 	content: "\e003";
 }
-.flaticon-run:before {
+.flaticon-expand28:before {
 	content: "\e004";
 }
-.flaticon-save:before {
+.flaticon-list31:before {
 	content: "\e005";
 }
-.flaticon-blockly:before {
+.flaticon-media23:before {
 	content: "\e006";
 }
-.flaticon-python3:before {
+.flaticon-memory8:before {
 	content: "\e007";
 }
-.flaticon-stop:before {
+.flaticon-puzzle-piece1:before {
 	content: "\e008";
+}
+.flaticon-python3:before {
+	content: "\e009";
+}
+.flaticon-soundwaves1:before {
+	content: "\e00a";
+}
+.flaticon-stop4:before {
+	content: "\e00b";
+}
+.flaticon-storagedevice:before {
+	content: "\e00c";
+}
+.flaticon-usb1:before {
+	content: "\e00d";
 }

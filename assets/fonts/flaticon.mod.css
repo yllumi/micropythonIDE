@@ -28,23 +28,41 @@ font-style: normal;
 	font-size: 29px;
 	line-height: 37px;
 }
-.flaticon-maximize:before {
+.flaticon-equalizer33:before {
 	content: "\e003";
 }
-.flaticon-run:before {
+.flaticon-maximize:before {
 	content: "\e004";
 }
-.flaticon-save:before {
+.flaticon-repl:before {
 	content: "\e005";
 }
-.flaticon-blockly:before {
+.flaticon-run:before {
 	content: "\e006";
 }
-.flaticon-python3:before {
+.flaticon-save:before {
 	content: "\e007";
 }
-.flaticon-stop:before {
+.flaticon-blockly:before {
 	content: "\e008";
+}
+.flaticon-python3:before {
+	content: "\e009";
+}
+.flaticon-bar:before {
+	content: "\e00a";
+}
+.flaticon-stop:before {
+	content: "\e00b";
 	font-size: 23px;
 	line-height: 37px;
+}
+.flaticon-usb-on:before {
+	content: "\e00c";
+}
+.flaticon-usb-off:before {
+	content: "\e00d";
+}
+.flaticon-knob:before {
+	content: "\e00c";
 }
