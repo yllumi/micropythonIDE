@@ -13,7 +13,8 @@
 	font-family: Flaticon;
         font-size: 24px;
 font-style: normal;
-}.flaticon-cancel30:before {
+
+}.flaticon-close:before {
 	content: "\e000";
 }
 .flaticon-connected:before {
@@ -27,21 +28,23 @@ font-style: normal;
 	font-size: 29px;
 	line-height: 37px;
 }
-.flaticon-expand42:before {
+.flaticon-maximize:before {
 	content: "\e003";
 }
-.flaticon-media23:before {
+.flaticon-run:before {
 	content: "\e004";
 }
-.flaticon-plug24:before {
+.flaticon-save:before {
 	content: "\e005";
 }
-.flaticon-puzzle-piece1:before {
+.flaticon-blockly:before {
 	content: "\e006";
 }
-.flaticon-right58:before {
+.flaticon-python3:before {
 	content: "\e007";
 }
-.flaticon-save31:before {
+.flaticon-stop:before {
 	content: "\e008";
+	font-size: 23px;
+	line-height: 37px;
 }

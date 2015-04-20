@@ -14,30 +14,30 @@
         font-size: 20px;
 font-style: normal;
 margin-left: 20px;
-}.flaticon-cancel30:before {
+}.flaticon-close:before {
 	content: "\e000";
 }
-.flaticon-computer248:before {
+.flaticon-connected:before {
 	content: "\e001";
 }
-.flaticon-computer44:before {
+.flaticon-disconnected:before {
 	content: "\e002";
 }
-.flaticon-expand42:before {
+.flaticon-maximize:before {
 	content: "\e003";
 }
-.flaticon-media23:before {
+.flaticon-run:before {
 	content: "\e004";
 }
-.flaticon-plug24:before {
+.flaticon-save:before {
 	content: "\e005";
 }
-.flaticon-puzzle-piece1:before {
+.flaticon-blockly:before {
 	content: "\e006";
 }
-.flaticon-right58:before {
+.flaticon-python3:before {
 	content: "\e007";
 }
-.flaticon-save31:before {
+.flaticon-stop:before {
 	content: "\e008";
 }

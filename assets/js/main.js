@@ -103,11 +103,6 @@ var connection = new SerialConnection();
 
 connection.onConnect.addListener(function() {
 	log('connected...');
-	// remove the connection drop-down
-	document.querySelector('#connect_box').style.display = 'none';
-	document.querySelector('#control_box').style.display = 'block';
-	// Simply send text to Espruino
-	connection.send('"Hello "+"Espruino"\n');
 });
 
 connection.onReadLine.addListener(function(line) {
@@ -139,6 +134,13 @@ $(document).on('click', '.serialport', function() {
 	// connect
 	log("Connecting to "+devicePath);
 	connection.connect(devicePath);
+
+	$('.btn-run').addClass('btn-stop').removeClass('btn-run')
+	.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
+
+	$('.btn-connect').addClass('btn-disconnect').removeClass('btn-connect')
+	.attr('title', 'Connected to port '+devicePath).html('<span class="flaticon-connected"></span>');
+
 });
 
 ////////////////////////////////////////////////////////
@@ -153,6 +155,22 @@ $(document).on('click', '.serialport', function() {
 $(function(){
 	$(document).on('click', '.btn-close', function(){
 		window.close();
+	});
+
+	$(document).on('click', '.btn-stop', function(){
+		connection.send('\x03');
+		connection.send('\x03');
+		connection.send('\x03');
+
+		$('.btn-stop').addClass('btn-run').removeClass('btn-stop')
+		.attr('title', 'Stop program').html('<span class="flaticon-run"></span>');
+	});
+
+	$(document).on('click', '.btn-run', function(){
+		connection.send('\x04');
+
+		$('.btn-run').addClass('btn-stop').removeClass('btn-run')
+		.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
 	});
 });
 
