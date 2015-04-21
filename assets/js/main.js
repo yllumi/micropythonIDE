@@ -36,8 +36,10 @@ SerialConnection.prototype.onConnectComplete = function(connectionInfo) {
 	if (!connectionInfo) {
 		log("Connection failed.");
 		
-		$('.btn-disconnect').addClass('btn-connect').removeClass('btn-disconnect')
+		$('.btn-disconnect').attr('btn-connect').removeClass('btn-disconnect')
 		.attr('title', 'Click and choose serial path to connect').html('<span class="flaticon-disconnected"></span>');
+
+		$(runProgram).removeAttr('disabled');
 
 		return;
 	}
@@ -94,10 +96,13 @@ SerialConnection.prototype.disconnect = function() {
 ////////////////////////////////////////////////////////
 //// READ AND WRITE TO FILE ////////////////////////////
 
-
 var chosenEntry = null;
+var codeChanged = false;
+
 var chooseFileButton = '.btn-flash';
 var saveFileButton = '.btn-save';
+var runProgram = '.btn-run';
+var stopProgram = '.btn-stop';
 var output = document.querySelector('output');
 var textarea = '#thecode';
 
@@ -105,48 +110,61 @@ function errorHandler(e) {
   console.error(e);
 }
 
+function codeChanges(isChange)
+{
+	// enable save button if true
+	if(isChange){
+		codeChanged = true;
+		$(saveFileButton).removeAttr('disabled');
+	} else {
+		codeChanged = false;
+		$(saveFileButton).attr('disabled','disabled');
+	}
+
+}
+
 function readAsText(fileEntry, callback) {
   fileEntry.file(function(file) {
-    var reader = new FileReader();
+	var reader = new FileReader();
 
-    reader.onerror = errorHandler;
-    reader.onload = function(e) {
-      callback(e.target.result);
-    };
+	reader.onerror = errorHandler;
+	reader.onload = function(e) {
+	  callback(e.target.result);
+	};
 
-    reader.readAsText(file);
+	reader.readAsText(file);
   });
 }
 
 function writeFileEntry(writableEntry, opt_blob, callback) {
   if (!writableEntry) {
-    output.textContent = 'Nothing selected.';
-    return;
+	output.textContent = 'Nothing selected.';
+	return;
   }
 
   writableEntry.createWriter(function(writer) {
 
-    writer.onerror = errorHandler;
-    writer.onwriteend = callback;
+	writer.onerror = errorHandler;
+	writer.onwriteend = callback;
 
-    // If we have data, write it to the file. Otherwise, just use the file we
-    // loaded.
-    if (opt_blob) {
-      writer.truncate(opt_blob.size);
-      waitForIO(writer, function() {
-        writer.seek(0);
-        writer.write(opt_blob);
-      });
-    } 
-    else {
-      chosenEntry.file(function(file) {
-        writer.truncate(file.fileSize);
-        waitForIO(writer, function() {
-          writer.seek(0);
-          writer.write(file);
-        });
-      });
-    }
+	// If we have data, write it to the file. Otherwise, just use the file we
+	// loaded.
+	if (opt_blob) {
+	  writer.truncate(opt_blob.size);
+	  waitForIO(writer, function() {
+		writer.seek(0);
+		writer.write(opt_blob);
+	  });
+	} 
+	else {
+	  chosenEntry.file(function(file) {
+		writer.truncate(file.fileSize);
+		waitForIO(writer, function() {
+		  writer.seek(0);
+		  writer.write(file);
+		});
+	  });
+	}
   }, errorHandler);
 }
 
@@ -155,18 +173,18 @@ function waitForIO(writer, callback) {
   var start = Date.now();
   // wait for a few seconds
   var reentrant = function() {
-    if (writer.readyState===writer.WRITING && Date.now()-start<4000) {
-      setTimeout(reentrant, 100);
-      return;
-    }
-    if (writer.readyState===writer.WRITING) {
-      console.error("Write operation taking too long, aborting!"+
-        " (current writer readyState is "+writer.readyState+")");
-      writer.abort();
-    } 
-    else {
-      callback();
-    }
+	if (writer.readyState===writer.WRITING && Date.now()-start<4000) {
+	  setTimeout(reentrant, 100);
+	  return;
+	}
+	if (writer.readyState===writer.WRITING) {
+	  console.error("Write operation taking too long, aborting!"+
+		" (current writer readyState is "+writer.readyState+")");
+	  writer.abort();
+	} 
+	else {
+	  callback();
+	}
   };
   setTimeout(reentrant, 100);
 }
@@ -176,66 +194,71 @@ function loadFileEntry(_chosenEntry) {
   chosenEntry = _chosenEntry;
 
   chosenEntry.file(function(file) {
-    readAsText(chosenEntry, function(result) {
-      $(textarea).val(result);
-    });
-    // Update display.
-    saveFileButton.disabled = false; // allow the user to save the content
+	readAsText(chosenEntry, function(result) {
+	  $(textarea).val(result);
+	});
+
+	$(chooseFileButton).removeAttr('disabled')
+	.html('<span class="flaticon-usb-on"></span>');
   });
 }
 
 function loadInitialFile(launchData) {
   if (launchData && launchData.items && launchData.items[0]) {
-    loadFileEntry(launchData.items[0].entry);
+	loadFileEntry(launchData.items[0].entry);
   } 
   else {
-    // see if the app retained access to an earlier file or directory
-    chrome.storage.local.get('chosenFile', function(items) {
-      console.log(items);
-      if (items.chosenFile) {
-        // if an entry was retained earlier, see if it can be restored
-        chrome.fileSystem.isRestorable(items.chosenFile, function(bIsRestorable) {
-          // the entry is still there, load the content
-          console.info("Restoring " + items.chosenFile);
-          chrome.fileSystem.restoreEntry(items.chosenFile, function(chosenEntry) {
-            if (chosenEntry) {
-              chosenEntry.isFile ? loadFileEntry(chosenEntry) : loadDirEntry(chosenEntry);
-            }
-          });
-        });
-      }
-    });
+	// see if the app retained access to an earlier file or directory
+	chrome.storage.local.get('chosenFile', function(items) {
+	  console.log(items);
+	  if (items.chosenFile) {
+		// if an entry was retained earlier, see if it can be restored
+		chrome.fileSystem.isRestorable(items.chosenFile, function(bIsRestorable) {
+		  // the entry is still there, load the content
+		  console.info("Restoring " + items.chosenFile);
+		  chrome.fileSystem.restoreEntry(items.chosenFile, function(chosenEntry) {
+			if (chosenEntry) {
+			  chosenEntry.isFile ? loadFileEntry(chosenEntry) : loadDirEntry(chosenEntry);
+			}
+		  });
+		});
+	  }
+	});
   }
 }
 
 $(document).on('click', chooseFileButton, function(e) {
   var accepts = [{
-    mimeTypes: ['text/*'],
-    extensions: ['py']
+	mimeTypes: ['text/*'],
+	extensions: ['py']
   }];
   chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
-    if (!theEntry) {
-      output.textContent = 'No file selected.';
-      return;
-    }
-    // use local storage to retain access to this file
-    chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
-    loadFileEntry(theEntry);
+	if (!theEntry) {
+	  output.textContent = 'No file selected.';
+	  return;
+	}
+	// use local storage to retain access to this file
+	chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
+	loadFileEntry(theEntry);
   });
 });
 
 $(document).on('click', saveFileButton, function(e) {
   // var config = {type: 'saveFile', suggestedName: chosenEntry.name};
   // chrome.fileSystem.chooseEntry(config, function(writableEntry) {
-    var blob = new Blob([$(textarea).val()], {type: 'text/plain'});
-    writeFileEntry(chosenEntry, blob, function(e) {
-      output.textContent = 'Write complete :)';
-    });
+	var blob = new Blob([$(textarea).val()], {type: 'text/plain'});
+	writeFileEntry(chosenEntry, blob, function(e) {
+		console.log('Write complete :)');
+		codeChanges(false);
+	});
   // });
 });
 
 loadInitialFile(launchData);
 
+$(document).on('change', textarea, function(){
+	codeChanges(true);
+});
 
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -289,7 +312,7 @@ $(document).on('click', '.serialport', function() {
 	log("Connecting to "+devicePath);
 	connection.connect(devicePath);
 
-	$('.btn-run').addClass('btn-stop').removeClass('btn-run')
+	$(runProgram).addClass('btn-stop').removeClass('btn-run').removeAttr('disabled')
 	.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
 
 	$('.btn-connect').addClass('btn-disconnect').removeClass('btn-connect')
