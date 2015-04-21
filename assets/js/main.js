@@ -115,10 +115,10 @@ function codeChanges(isChange)
 	// enable save button if true
 	if(isChange){
 		codeChanged = true;
-		$(saveFileButton).removeAttr('disabled');
+		// $(saveFileButton).removeAttr('disabled');
 	} else {
 		codeChanged = false;
-		$(saveFileButton).attr('disabled','disabled');
+		// $(saveFileButton).attr('disabled','disabled');
 	}
 
 }
@@ -195,7 +195,7 @@ function loadFileEntry(_chosenEntry) {
 
   chosenEntry.file(function(file) {
 	readAsText(chosenEntry, function(result) {
-	  $(textarea).val(result);
+		editor.doc.setValue(result);
 	});
 
 	$(chooseFileButton).removeAttr('disabled')
@@ -246,7 +246,7 @@ $(document).on('click', chooseFileButton, function(e) {
 $(document).on('click', saveFileButton, function(e) {
   // var config = {type: 'saveFile', suggestedName: chosenEntry.name};
   // chrome.fileSystem.chooseEntry(config, function(writableEntry) {
-	var blob = new Blob([$(textarea).val()], {type: 'text/plain'});
+	var blob = new Blob([editor.getValue()], {type: 'text/plain'});
 	writeFileEntry(chosenEntry, blob, function(e) {
 		console.log('Write complete :)');
 		codeChanges(false);
@@ -366,6 +366,7 @@ $(function(){
 
 		$(this).addClass('btn-info').removeClass('btn-default');
 		$('.bar').show();
+		console.log(editor.getValue());
 	});
 
 });
@@ -373,3 +374,18 @@ $(function(){
 /* BLOCKLY */
 // Blockly.inject(document.getElementById('blocklyDiv'),
 // 			{toolbox: document.getElementById('toolbox')} );
+
+//////////////////////////////////////////////////////////////
+///////////////////////// CODEMIRROR /////////////////////////
+//////////////////////////////////////////////////////////////
+var editor = CodeMirror.fromTextArea(document.getElementById('thecode'), {
+	lineNumbers: true,
+	styleActiveLine: true,
+	matchBrackets: true,
+	mode: "python",
+	theme: "twilight",
+	change: function(cm) {
+		codeChanges(true);
+		console.log('berubah');
+	}
+});
