@@ -1,8 +1,12 @@
 {
-	"name": "Micropython IDE",
+	"name": "Micropython Web IDE",
 	"version": "1.0",
 	"manifest_version": 2,
-	"permissions": ["serial","fileSystem","storage"],
+	"permissions": [
+	"serial", 
+	{"fileSystem": ["write", "retainEntries", "directory"]},
+	"storage"
+	],
 	"minimum_chrome_version": "23",
 	"icons": {
 		"16": "icon_16.png",
@@ -12,6 +16,13 @@
 		"background": {
 			"scripts": ["launch.js"],
 			"transient": true
+		}
+	},
+	"file_handlers": {
+		"text": {
+			"types": [
+			"text/*"
+			]
 		}
 	}
 }
