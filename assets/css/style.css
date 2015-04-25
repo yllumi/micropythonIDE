@@ -355,3 +355,25 @@ button {
 .CodeMirror pre {
 	font-size: 12px !important;
 }
+.messages {
+	position: absolute;
+	top: 0;
+	right: 40%;
+	left: 40%;
+	z-index: 100;
+	text-align: center;
+}
+.messages > div {
+  padding: 3px 10px;
+  border-radius: 0 0 5px 5px;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 3px;
+  display: none;
+}
+.successMsg {
+	background: rgba(87, 189, 87, .7);
+}
+.errorMsg {
+	background: rgba(255, 165, 0, 0.81);
+}
