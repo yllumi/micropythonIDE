@@ -87,15 +87,15 @@
     float: left;
 }
 .terminal, .cmd {
-    font-family: FreeMono, monospace;
-    color: #aaa;
+    font-family: Courier, FreeMono, monospace;
+    color: #eee;
     background-color: #000;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 14px;
 }
 .terminal-output > div {
     /*padding-top: 3px;*/
-    min-height: 14px;
+    min-height: 8px;
 }
 .terminal .terminal-output div span {
     display: inline-block;

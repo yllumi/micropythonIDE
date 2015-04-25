@@ -78,6 +78,21 @@ $(document).on('click', '.serialport', function() {
 ////////////////////////////////////////////////////////
 
 $(function(){
+	// JCUBIC JQUERY TERMINAL
+	$('.terminal').terminal(function(command, term) {
+		if (command !== '') {
+			term.echo('You type ' + command);
+		} else if(command == 'clear'){
+			term.clear();
+		} else {
+			term.echo('');
+		}
+	}, {
+		greetings: 'Micropython Web IDE',
+		name: 'upython_terminal',
+		height: 70 + "%",
+		exit: false,
+		prompt: '>>> '});
 
 	// when CHOOSE FILE BUTTON clicked
 	$(document).on('click', chooseFileButton, function(e) {
@@ -98,6 +113,7 @@ $(function(){
 
 	// when SAVE FILE BUTTON clicked
 	$(document).on('click', saveFileButton, function(e) {
+		termin.echo("File saved.");
 		var blob = new Blob([editor.getValue()], {type: 'text/plain'});
 		writeFileEntry(chosenEntry, blob, function(e) {
 			successMsg('File saved.');
@@ -144,10 +160,6 @@ $(function(){
 
 });
 
-/* BLOCKLY */
-// Blockly.inject(document.getElementById('blocklyDiv'),
-// 			{toolbox: document.getElementById('toolbox')} );
-
 //////////////////////////////////////////////////////////////
 ///////////////////////// CODEMIRROR /////////////////////////
 //////////////////////////////////////////////////////////////
@@ -164,3 +176,6 @@ var editor = CodeMirror.fromTextArea(document.getElementById('thecode'), {
 editor.on("change", function(cm, changeObj) {
 	codeChanges(true);
 });
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////

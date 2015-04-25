@@ -357,23 +357,26 @@ button {
 }
 .messages {
 	position: absolute;
-	top: 0;
-	right: 40%;
-	left: 40%;
+	bottom: 20px;
+	right: 15px;
 	z-index: 100;
 	text-align: center;
 }
 .messages > div {
-  padding: 3px 10px;
-  border-radius: 0 0 5px 5px;
-  font-size: 14px;
-  color: white;
-  margin-bottom: 3px;
-  display: none;
+	padding: 5px 10px;
+	min-width: 100px;
+	font-size: 14px;
+	color: white;
+	margin-bottom: 3px;
+	display: none;
+	-webkit-box-shadow:rgba(20, 20, 20, 0.4) -2px 2px 0px 1px;
+	-moz-box-shadow:rgba(20, 20, 20, 0.4) -2px 2px 0px 1px;
+	box-shadow:rgba(20, 20, 20, 0.4) -2px 2px 0px 1px;
+
 }
 .successMsg {
-	background: rgba(87, 189, 87, .7);
+	background: rgb(87, 189, 87);
 }
 .errorMsg {
-	background: rgba(255, 165, 0, 0.81);
+	background: rgb(255, 165, 0);
 }
