@@ -86,7 +86,7 @@ $(function(){
 	terminal = $('.terminal').terminal(
 	function(command, term) {
 		if (command !== '') {
-			connection.send(command + "\n");
+			connection.send(command + '\r');
 		} else {
 			term.echo('');
 		}
