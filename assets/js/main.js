@@ -40,6 +40,8 @@ var connection = new SerialConnection();
 // when app connected to serial
 connection.onConnect.addListener(function() {
 	log('connected...');
+	terminal.set_prompt(">>> ");
+	connection.send('\x03');
 });
 
 // when app receive data from serial
@@ -69,8 +71,7 @@ $(document).on('click', '.serialport', function() {
 	log("Connecting to "+devicePath);
 	connection.connect(devicePath);
 
-	$(runProgram).addClass('btn-stop').removeClass('btn-run').removeAttr('disabled')
-	.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
+	$(runProgram).removeAttr('disabled');
 
 	$('.btn-connect').addClass('btn-disconnect').removeClass('btn-connect')
 	.attr('title', 'Connected to port '+devicePath).html('<span class="flaticon-connected"></span>');
@@ -86,16 +87,16 @@ $(function(){
 	terminal = $('.terminal').terminal(
 	function(command, term) {
 		if (command !== '') {
-			connection.send(command + '\r');
+			connection.send(command + '\r\n');
 		} else {
 			term.echo('');
 		}
 	}, {
-		greetings: 'Micropython Web IDE',
+		greetings: 'Welcome to Micropython Web IDE',
 		name: 'upython_terminal',
 		height: 70 + "%",
 		exit: false,
-		prompt: '>>> '
+		prompt: ''
 	});
 
 	// when CHOOSE FILE BUTTON clicked
