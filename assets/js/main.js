@@ -1,9 +1,13 @@
+var terminal;
+
 function log(msg) {
-	$('.terminal').append('<p>'+ msg +'</p>');
-	var div = $('.terminal');
-	div.scrollTop( div.get(0).scrollHeight );
-	if(div.children().length > 50)
-		div.children().first().remove();
+	terminal.echo(msg);
+	terminal.set_command("");
+
+	// var div = $('.terminal');
+	// div.scrollTop( div.get(0).scrollHeight );
+	// if(div.children().length > 50)
+	// 	div.children().first().remove();
 
 	var widthbar = parseInt(msg)/4095 * 100;
 	$('#progress1').children('.progress-bar').attr('aria-valuenow', parseInt(msg)).attr('aria-valuemin', 0).attr('aria-valuemax', 4095).css('width', widthbar+'%');
@@ -79,11 +83,10 @@ $(document).on('click', '.serialport', function() {
 
 $(function(){
 	// JCUBIC JQUERY TERMINAL
-	$('.terminal').terminal(function(command, term) {
+	terminal = $('.terminal').terminal(
+	function(command, term) {
 		if (command !== '') {
-			term.echo('You type ' + command);
-		} else if(command == 'clear'){
-			term.clear();
+			connection.send(command);
 		} else {
 			term.echo('');
 		}
@@ -92,7 +95,8 @@ $(function(){
 		name: 'upython_terminal',
 		height: 70 + "%",
 		exit: false,
-		prompt: '>>> '});
+		prompt: '>>> '
+	});
 
 	// when CHOOSE FILE BUTTON clicked
 	$(document).on('click', chooseFileButton, function(e) {
