@@ -87,9 +87,7 @@ SerialConnection.prototype.send = function(msg) {
 	if (this.connectionId < 0) {
 		throw 'Invalid connection';
 	}
-	serial.send(this.connectionId, str2ab(msg), function(sendInfo) {
-		console.log(sendInfo);
-	});
+	serial.send(this.connectionId, str2ab(msg), function() {});
 };
 
 SerialConnection.prototype.disconnect = function() {

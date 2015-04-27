@@ -1,4 +1,5 @@
 var terminal;
+var dontLog = false;
 
 function log(msg) {
 	terminal.echo(msg);
@@ -40,13 +41,14 @@ var connection = new SerialConnection();
 // when app connected to serial
 connection.onConnect.addListener(function() {
 	log('connected...');
-	terminal.set_prompt(">>> ");
 	connection.send('\x03');
+	terminal.set_prompt(">>> ");
 });
 
 // when app receive data from serial
 connection.onReadLine.addListener(function(line) {
-	log(line);
+	if(!dontLog)
+		log(line);
 });
 
 // Populate the list of available devices
@@ -87,7 +89,8 @@ $(function(){
 	terminal = $('.terminal').terminal(
 	function(command, term) {
 		if (command !== '') {
-			connection.send(command + '\r\n');
+			dontLog = true;
+			connection.send(command + "\r\n");
 		} else {
 			term.echo('');
 		}
@@ -142,6 +145,7 @@ $(function(){
 
 	// when RUN BUTTON clicked
 	$(document).on('click', '.btn-run', function(){
+		dontLog = false;
 		connection.send('\x04');
 		terminal.set_prompt("");
 
