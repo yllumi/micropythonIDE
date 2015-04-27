@@ -10,13 +10,18 @@ var ab2str = function(buf) {
 };
 
 /* Converts a string to UTF-8 encoding in a Uint8Array; returns the array buffer. */
-var str2ab = function(str) {
-	var encodedString = unescape(encodeURIComponent(str));
-	var bytes = new Uint8Array(encodedString.length);
-	for (var i = 0; i < encodedString.length; ++i) {
-		bytes[i] = encodedString.charCodeAt(i);
+var str2ab=function(str) {
+	var buf=new ArrayBuffer(str.length);
+	var bufView=new Uint8Array(buf);
+	for (var i=0; i<str.length; i++) {
+		var ch = str.charCodeAt(i);
+		if (ch>=256) {
+			console.warn("Attempted to send non-8 bit character - code "+ch);
+			ch = "?".charCodeAt(0);
+		}
+		bufView[i] = ch;
 	}
-	return bytes.buffer;
+	return buf;
 };
 
 ////////////////////////////////////////////////////////
@@ -82,7 +87,9 @@ SerialConnection.prototype.send = function(msg) {
 	if (this.connectionId < 0) {
 		throw 'Invalid connection';
 	}
-	serial.send(this.connectionId, str2ab(msg), function() {});
+	serial.send(this.connectionId, str2ab(msg), function(sendInfo) {
+		console.log(sendInfo);
+	});
 };
 
 SerialConnection.prototype.disconnect = function() {

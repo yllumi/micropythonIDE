@@ -86,7 +86,7 @@ $(function(){
 	terminal = $('.terminal').terminal(
 	function(command, term) {
 		if (command !== '') {
-			connection.send(command);
+			connection.send(command + "\n");
 		} else {
 			term.echo('');
 		}
@@ -133,6 +133,7 @@ $(function(){
 	// when STOP BUTTON clicked
 	$(document).on('click', '.btn-stop', function(){
 		connection.send('\x03');
+		terminal.set_prompt(">>> ");
 
 		$('.btn-stop').addClass('btn-run').removeClass('btn-stop')
 		.attr('title', 'Stop program').html('<span class="flaticon-run"></span>');
@@ -141,6 +142,7 @@ $(function(){
 	// when RUN BUTTON clicked
 	$(document).on('click', '.btn-run', function(){
 		connection.send('\x04');
+		terminal.set_prompt("");
 
 		$('.btn-run').addClass('btn-stop').removeClass('btn-run')
 		.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
