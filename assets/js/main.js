@@ -89,7 +89,6 @@ $(function(){
 	terminal = $('.terminal').terminal(
 	function(command, term) {
 		if (command !== '') {
-			dontLog = true;
 			connection.send(command + "\r\n");
 		} else {
 			term.echo('');

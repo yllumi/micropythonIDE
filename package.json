@@ -1,6 +1,6 @@
 {
-  "name": "Frameless Window",
-  "description": "Chrome platform app.",
+  "name": "Micropython Web IDE",
+  "description": "Chrome application for programming Micropython.",
   "version": "0.1",
   "main": "index.html",
   "window": {
