@@ -1,14 +1,10 @@
 var terminal;
 var dontLog = false;
+var mode;
 
 function log(msg) {
 	terminal.echo(msg);
 	terminal.set_command("");
-
-	// var div = $('.terminal');
-	// div.scrollTop( div.get(0).scrollHeight );
-	// if(div.children().length > 50)
-	// 	div.children().first().remove();
 
 	var widthbar = parseInt(msg)/4095 * 100;
 	$('#progress1').children('.progress-bar').attr('aria-valuenow', parseInt(msg)).attr('aria-valuemin', 0).attr('aria-valuemax', 4095).css('width', widthbar+'%');
@@ -28,6 +24,16 @@ function errorMsg(msg){
 	setInterval(function(){
 		$('.errorMsg').fadeOut(1000);
 	}, 5000);
+}
+
+function changeMode(mode){
+	if(mode == 'block'){
+		$('#blocklyDiv').css('z-index', 1);
+		$('#code-editor').css('z-index', -1);
+	} else {
+		$('#blocklyDiv').css('z-index', -1);
+		$('#code-editor').css('z-index', 1);
+	}
 }
 
 // load data from file if it is already connected
@@ -66,7 +72,7 @@ connection.getDevices(function(ports) {
 });
 
 // Handle the 'Connect' button
-$(document).on('click', '.serialport', function() {	
+$(document).off('click', '.serialport').on('click', '.serialport', function() {	
 	// get the device to connect to
 	var devicePath = $(this).data('path');
 	// connect
@@ -102,7 +108,7 @@ $(function(){
 	});
 
 	// when CHOOSE FILE BUTTON clicked
-	$(document).on('click', chooseFileButton, function(e) {
+	$(document).off('click', chooseFileButton).on('click', chooseFileButton, function(e) {
 	  var accepts = [{
 		mimeTypes: ['text/*'],
 		extensions: ['py']
@@ -119,8 +125,8 @@ $(function(){
 	});
 
 	// when SAVE FILE BUTTON clicked
-	$(document).on('click', saveFileButton, function(e) {
-		termin.echo("File saved.");
+	$(document).off('click', saveFileButton).on('click', saveFileButton, function(e) {
+		terminal.echo("File saved.");
 		var blob = new Blob([editor.getValue()], {type: 'text/plain'});
 		writeFileEntry(chosenEntry, blob, function(e) {
 			successMsg('File saved.');
@@ -129,43 +135,60 @@ $(function(){
 	});
 
 	// CLOSE BUTTON
-	$(document).on('click', '.btn-close', function(){
+	$(document).off('click', '.btn-close').on('click', '.btn-close', function(){
 		window.close();
 	});
 
 	// when STOP BUTTON clicked
-	$(document).on('click', '.btn-stop', function(){
+	$(document).off('click', '.btn-stop').on('click', '.btn-stop', function(){
 		connection.send('\x03');
-		terminal.set_prompt(">>> ");
-
+		terminalal.set_prompt(">>> ");
 		$('.btn-stop').addClass('btn-run').removeClass('btn-stop')
 		.attr('title', 'Stop program').html('<span class="flaticon-run"></span>');
 	});
 
 	// when RUN BUTTON clicked
-	$(document).on('click', '.btn-run', function(){
+	$(document).off('click', '.btn-run').on('click', '.btn-run', function(){
 		dontLog = false;
 		connection.send('\x04');
 		terminal.set_prompt("");
+
+		console.log('run');
 
 		$('.btn-run').addClass('btn-stop').removeClass('btn-run')
 		.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
 	});
 
 	// when one of output panel button clicked
-	$(document).on('click', '.btn-repl', function(){
+	$(document).off('click', '.btn-repl').on('click', '.btn-repl', function(){
 		$('.btn-output').addClass('btn-default').removeClass('btn-info');
 		$('.output-panel').children('.output-panel-child').hide();
 
 		$(this).addClass('btn-info').removeClass('btn-default');
 		$('.terminal').show();
 	});
-	$(document).on('click', '.btn-bar', function(){
+	$(document).off('click', '.btn-bar').on('click', '.btn-bar', function(){
 		$('.btn-output').addClass('btn-default').removeClass('btn-info');
 		$('.output-panel').children('.output-panel-child').hide();
 
 		$(this).addClass('btn-info').removeClass('btn-default');
 		$('.bar').show();
+	});
+
+	// when PYTHON CODE BUTTON clicked
+	$(document).off('click', '.btn-codemode').on('click', '.btn-codemode', function(){
+		changeMode('block');
+
+		$(this).addClass('btn-blockmode').removeClass('btn-codemode')
+		.attr('title', 'switch to python mode').html('<span class="flaticon-blockly"></span>');
+	});
+
+	// when BLOCKLY CODE BUTTON clicked
+	$(document).off('click', '.btn-blockmode').on('click', '.btn-blockmode', function(){
+		changeMode('code');
+
+		$(this).addClass('btn-codemode').removeClass('btn-blockmode')
+		.attr('title', 'switch to blockly mode').html('<span class="flaticon-python3"></span>');
 	});
 
 });
@@ -189,3 +212,9 @@ editor.on("change", function(cm, changeObj) {
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
+// window.onload = function() {
+	Blockly.inject(document.getElementById('blocklyDiv'),
+    	  {toolbox: document.getElementById('toolbox')});
+
+	$('#blocklyDiv').css('z-index', -1);
+// };
