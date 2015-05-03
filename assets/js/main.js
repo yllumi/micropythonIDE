@@ -1,6 +1,7 @@
 var terminal;
 var dontLog = false;
-var mode;
+var mode = 'code';
+var latestCode;
 
 function log(msg) {
 	terminal.echo(msg);
@@ -34,6 +35,7 @@ function changeMode(mode){
 		$('#blocklyDiv').css('z-index', -1);
 		$('#code-editor').css('z-index', 1);
 	}
+	window.mode = mode;
 }
 
 // load data from file if it is already connected
@@ -126,12 +128,26 @@ $(function(){
 
 	// when SAVE FILE BUTTON clicked
 	$(document).off('click', saveFileButton).on('click', saveFileButton, function(e) {
-		terminal.echo("File saved.");
-		var blob = new Blob([editor.getValue()], {type: 'text/plain'});
-		writeFileEntry(chosenEntry, blob, function(e) {
-			successMsg('File saved.');
-			codeChanges(false);
-		});
+		if(mode != 'block'){
+			latestCode = editor.getValue();
+		} else {
+			blocklyUpdate();
+		}
+
+		blob = latestCode.replace(/\n/g, "\\n");
+
+		// writeFileEntry(chosenEntry, blob, function(e) {
+		// 	successMsg('File saved.');
+		// 	codeChanges(false);
+		// });
+
+		dontLog = true;
+		connection.send("import os\r\n");
+		connection.send("f = open('/flash/main.py', 'w')\r\n");
+		connection.send("f.write(str('"+blob+"'))\r\n");
+		connection.send("f.close()\r\n");
+		connection.send("os.sync()\r\n");
+
 	});
 
 	// CLOSE BUTTON
@@ -142,7 +158,7 @@ $(function(){
 	// when STOP BUTTON clicked
 	$(document).off('click', '.btn-stop').on('click', '.btn-stop', function(){
 		connection.send('\x03');
-		terminalal.set_prompt(">>> ");
+		terminal.set_prompt(">>> ");
 		$('.btn-stop').addClass('btn-run').removeClass('btn-stop')
 		.attr('title', 'Stop program').html('<span class="flaticon-run"></span>');
 	});
@@ -152,8 +168,6 @@ $(function(){
 		dontLog = false;
 		connection.send('\x04');
 		terminal.set_prompt("");
-
-		console.log('run');
 
 		$('.btn-run').addClass('btn-stop').removeClass('btn-run')
 		.attr('title', 'Stop program').html('<span class="flaticon-stop"></span>');
@@ -212,9 +226,12 @@ editor.on("change", function(cm, changeObj) {
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-// window.onload = function() {
-	Blockly.inject(document.getElementById('blocklyDiv'),
-    	  {toolbox: document.getElementById('toolbox')});
+Blockly.inject(document.getElementById('blocklyDiv'),
+	  {toolbox: document.getElementById('toolbox')});
 
-	$('#blocklyDiv').css('z-index', -1);
-// };
+$('#blocklyDiv').css('z-index', -1);
+
+function blocklyUpdate() {
+	latestCode = Blockly.Python.workspaceToCode();
+}
+Blockly.addChangeListener(blocklyUpdate);
