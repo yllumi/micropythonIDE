@@ -128,6 +128,12 @@ $(function(){
 
 	// when SAVE FILE BUTTON clicked
 	$(document).off('click', saveFileButton).on('click', saveFileButton, function(e) {
+		// var blob = new Blob([editor.getValue()], {type: 'text/plain'});
+		// writeFileEntry(chosenEntry, blob, function(e) {
+		// 	successMsg('File saved.');
+		// 	codeChanges(false);
+		// });
+
 		if(mode != 'block'){
 			latestCode = editor.getValue();
 		} else {
@@ -135,11 +141,6 @@ $(function(){
 		}
 
 		blob = latestCode.replace(/\n/g, "\\n");
-
-		// writeFileEntry(chosenEntry, blob, function(e) {
-		// 	successMsg('File saved.');
-		// 	codeChanges(false);
-		// });
 
 		dontLog = true;
 		connection.send("import os\r\n");
