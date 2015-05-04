@@ -1,7 +1,39 @@
+//////////////////////////////////////////////////////
+/////////////// GLOBAL VARIABLES /////////////////////
 var terminal;
 var dontLog = false;
 var mode = 'code';
 var latestCode;
+
+var chosenEntry = null;
+var codeChanged = false;
+
+var chooseFileButton = '.btn-flash';
+var saveFileButton = '.btn-save';
+var runProgramButton = '.btn-run';
+var stopProgram = '.btn-stop';
+var output = document.querySelector('output');
+var textarea = '#thecode';
+
+//////////////////////////////////////////////////////
+/////////////// COMMON FUNCTIONS /////////////////////
+
+function errorHandler(e) {
+	console.error(e);
+}
+
+function codeChanges(isChange)
+{
+	// enable save button if true
+	if(isChange){
+		codeChanged = true;
+		// $(saveFileButton).removeAttr('disabled');
+	} else {
+		codeChanged = false;
+		// $(saveFileButton).attr('disabled','disabled');
+	}
+
+}
 
 function log(msg) {
 	terminal.echo(msg);
@@ -38,9 +70,6 @@ function changeMode(mode){
 	window.mode = mode;
 }
 
-// load data from file if it is already connected
-loadInitialFile(launchData);
-
 ////////////////////////////////////////////////////////
 /////////////// MAKE SERIAL CONNECTION /////////////////
 
@@ -60,16 +89,18 @@ connection.onReadLine.addListener(function(line) {
 });
 
 // Populate the list of available devices
-connection.getDevices(function(ports) {
-	// get drop-down port selector
-	var dropDown = $('.dropdown-menu');
-	// clear existing options
-	dropDown.html("");
-	// add new options
-	ports.forEach(function (port) {
-		var displayName = port["displayName"] + "("+port.path+")";
-		if (!displayName) displayName = port.path;
-		dropDown.append('<li role="presentation"><a role="menuitem" class="serialport" tabindex="-1" data-path="'+port.path+'">'+displayName+'</a></li>');
+$(document).off('click', '.btn-connect').on('click', '.btn-connect', function() {	
+	connection.getDevices(function(ports) {
+		// get drop-down port selector
+		var dropDown = $('.dropdown-menu');
+		// clear existing options
+		dropDown.html("");
+		// add new options
+		ports.forEach(function (port) {
+			var displayName = port["displayName"] + "("+port.path+")";
+			if (!displayName) displayName = port.path;
+			dropDown.append('<li role="presentation"><a role="menuitem" class="serialport" tabindex="-1" data-path="'+port.path+'">'+displayName+'</a></li>');
+		});
 	});
 });
 
@@ -81,9 +112,11 @@ $(document).off('click', '.serialport').on('click', '.serialport', function() {
 	log("Connecting to "+devicePath);
 	connection.connect(devicePath);
 
-	$(runProgram).removeAttr('disabled');
+	$(runProgramButton).removeAttr('disabled');
+	$(saveFileButton).removeAttr('disabled');
 
-	$('.btn-connect').addClass('btn-disconnect').removeClass('btn-connect')
+	$('.btn-connect')
+	// .addClass('btn-disconnect').removeClass('btn-connect')
 	.attr('title', 'Connected to port '+devicePath).html('<span class="flaticon-connected"></span>');
 
 });
@@ -110,28 +143,26 @@ $(function(){
 	});
 
 	// when CHOOSE FILE BUTTON clicked
-	$(document).off('click', chooseFileButton).on('click', chooseFileButton, function(e) {
-	  var accepts = [{
-		mimeTypes: ['text/*'],
-		extensions: ['py']
-	  }];
-	  chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
-		if (!theEntry) {
-		  errorMsg('No file selected.');
-		  return;
-		}
-		// use local storage to retain access to this file
-		chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
-		loadFileEntry(theEntry);
-	  });
-	});
+	// $(document).off('click', chooseFileButton).on('click', chooseFileButton, function(e) {
+	//   var accepts = [{
+	// 	mimeTypes: ['text/*'],
+	// 	extensions: ['py']
+	//   }];
+	//   chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
+	// 	if (!theEntry) {
+	// 	  errorMsg('No file selected.');
+	// 	  return;
+	// 	}
+	// 	// use local storage to retain access to this file
+	// 	chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
+	// 	loadFileEntry(theEntry);
+	//   });
+	// });
 
 	// when SAVE FILE BUTTON clicked
 	$(document).off('click', saveFileButton).on('click', saveFileButton, function(e) {
 		// var blob = new Blob([editor.getValue()], {type: 'text/plain'});
 		// writeFileEntry(chosenEntry, blob, function(e) {
-		// 	successMsg('File saved.');
-		// 	codeChanges(false);
 		// });
 
 		if(mode != 'block'){
@@ -140,7 +171,7 @@ $(function(){
 			blocklyUpdate();
 		}
 
-		blob = latestCode.replace(/\n/g, "\\n");
+		var blob = latestCode.replace(/\n/g, "\\n");
 
 		dontLog = true;
 		connection.send("import os\r\n");
@@ -149,6 +180,8 @@ $(function(){
 		connection.send("f.close()\r\n");
 		connection.send("os.sync()\r\n");
 
+		successMsg('File saved.');
+		codeChanges(false);
 	});
 
 	// CLOSE BUTTON
@@ -204,6 +237,11 @@ $(function(){
 
 		$(this).addClass('btn-codemode').removeClass('btn-blockmode')
 		.attr('title', 'switch to blockly mode').html('<span class="flaticon-python3"></span>');
+	});
+
+	// when SHOWCODE BUTTON clicked
+	$(document).off('click', '.btn-showcode').on('click', '.btn-showcode', function(){
+		console.log(latestCode);
 	});
 
 });

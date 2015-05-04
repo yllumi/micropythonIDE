@@ -3,12 +3,14 @@ html, body {
 }
 
 body {
-	background-color: white;
+	background-color: #008cba;
 	font-family: sans-serif;
 	margin: 0;
 	overflow: hidden;
 	border: 1px solid #ddd;
-	/*border-top: 0;*/
+	border: 1px solid #005E7C;
+	border-top-color: #09A3D3;
+	border-left-color: #09A3D3;
 }
 
 .farSide {
@@ -171,11 +173,11 @@ button {
 /** HEADER **/
 .navbar-inverse {
 	min-height: 0;
-	background-color: white;
-	background-image:-webkit-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);
+	background-color: #008cba;
+/*	background-image:-webkit-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);
 	background-image:-moz-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);
 	background-image:-o-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);
-	background-image:-ms-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);
+	background-image:-ms-linear-gradient(-90deg,rgba(128,128,128,0.11) 0%,rgba(255,255,255,0.51) 67%,rgba(255,255,255,0.52) 81%,#fff 100%);*/
 }
 .wrapper {
 	width: 100%;
@@ -186,7 +188,7 @@ button {
 	bottom: 2px;
 	left: 2px;
 	width: 55%;
-	border: 5px solid white;
+	border: 5px solid #008cba;
 }
 .code-content .dropdown-menu {
 	top: 0;
@@ -204,8 +206,10 @@ button {
 	display: none;
 }
 .blocklyTreeRow {
+	line-height: 18px!important;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	padding-right: 10px !important;
 	height: auto !important;
 }
 .blocklyTreeRow:hover {
@@ -213,6 +217,9 @@ button {
 }
 .blocklyTreeSelected {
 	background-color: #d08002 !important;
+}
+.blocklyTreeLabel {
+	font-size: 14px !important;
 }
 .blocklyTreeRoot {
 	padding: 0 !important; 
@@ -256,6 +263,7 @@ button {
 .form-icon-topbar .btn-icon {
 	width: 24px;
 	height: 28px;
+	color: white;
 }
 .form-icon-topbar .btn-icon span:before {
 	font-size: 12px;
@@ -270,11 +278,11 @@ button {
 	color: pink;
 }
 .navbar>.container-fluid .navbar-brand {
-	margin-left: -15px;
-	color: #444;
-	font-size: 16px;
-	padding: 3px 0 0 30px;
-	background: url(../../icon_16.png) no-repeat 7px 5px;
+	margin-left: -5px;
+	color: #eee;
+	font-size: 22px;
+	padding: 13px 0 0 30px;
+	background: url(../../icon_16.png) no-repeat 7px 15px;
 }
 
 /*input panel*/
@@ -302,7 +310,7 @@ button {
 	width: 45%;
 	top: 45px;
 	bottom: 2px;
-	right: 2px;
+	right: 3px;
 }
 .terminal {
 	position: absolute;
@@ -312,7 +320,7 @@ button {
 	bottom: 0;
 
 	background: rgb(78, 95, 116);
-	border: 5px solid white;
+	border: 5px solid #008cba;
 	color: white;
 	padding: 5px;
 	font-family: Courier;
@@ -330,7 +338,7 @@ button {
 	bottom: 0;
 
 	background-color: #eee;
-	border: 5px solid white;
+	border: 5px solid #008cba;
 	padding: 5px;
 }
 .bar .progress {

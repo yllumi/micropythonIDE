@@ -1,33 +1,6 @@
 ////////////////////////////////////////////////////////
 //// READ AND WRITE TO FILE ////////////////////////////
 
-var chosenEntry = null;
-var codeChanged = false;
-
-var chooseFileButton = '.btn-flash';
-var saveFileButton = '.btn-save';
-var runProgram = '.btn-run';
-var stopProgram = '.btn-stop';
-var output = document.querySelector('output');
-var textarea = '#thecode';
-
-function errorHandler(e) {
-	console.error(e);
-}
-
-function codeChanges(isChange)
-{
-	// enable save button if true
-	if(isChange){
-		codeChanged = true;
-		// $(saveFileButton).removeAttr('disabled');
-	} else {
-		codeChanged = false;
-		// $(saveFileButton).attr('disabled','disabled');
-	}
-
-}
-
 function readAsText(fileEntry, callback) {
 	fileEntry.file(function(file) {
 		var reader = new FileReader();

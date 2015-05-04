@@ -44,7 +44,7 @@ SerialConnection.prototype.onConnectComplete = function(connectionInfo) {
 		$('.btn-disconnect').attr('btn-connect').removeClass('btn-disconnect')
 		.attr('title', 'Click and choose serial path to connect').html('<span class="flaticon-disconnected"></span>');
 
-		$(runProgram).removeAttr('disabled');
+		$(runProgramButton).removeAttr('disabled');
 
 		return;
 	}
