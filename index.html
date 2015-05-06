@@ -25,7 +25,9 @@
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
 
+	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
+	<script src="assets/js/blockly_micropython/accel.js"></script>
 	<script src="vendor/blockly/msg/js/en.js"></script>
 
 </head>
@@ -111,6 +113,22 @@
 	</div>
 
 	<xml id="toolbox" style="display: none">
+				<category name="Lists">
+			<block type="lists_create_empty"></block>
+			<block type="lists_create_with"></block>
+			<block type="lists_repeat">
+				<value name="NUM">
+					<block type="math_number">
+						<field name="NUM">5</field>
+					</block>
+				</value>
+			</block>
+			<block type="lists_length"></block>
+			<block type="lists_isEmpty"></block>
+			<block type="lists_indexOf"></block>
+			<block type="lists_getIndex"></block>
+			<block type="lists_setIndex"></block>
+		</category>
 		<category name="Logic">
 			<block type="controls_if"></block>
 			<block type="controls_if">
@@ -199,27 +217,12 @@
 			</block>
 			<block type="math_random_float"></block>
 		</category>
-		<category name="Lists">
-			<block type="lists_create_empty"></block>
-			<block type="lists_create_with"></block>
-			<block type="lists_repeat">
-				<value name="NUM">
-					<block type="math_number">
-						<field name="NUM">5</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_length"></block>
-			<block type="lists_isEmpty"></block>
-			<block type="lists_indexOf"></block>
-			<block type="lists_getIndex"></block>
-			<block type="lists_setIndex"></block>
-		</category>
+
 		<category name="Variables" custom="VARIABLE"></category>
 		<category name="Functions" custom="PROCEDURE"></category>
 		<sep></sep>
 
-		<category name="pyb">
+		<category name="Pyboard">
 			<block type="pyb_led"></block>
 			<block type="pyb_delay"></block>
 			<block type="pyb_hard_reset"></block>
@@ -228,11 +231,21 @@
 			<block type="pyb_stop"></block>
 			<block type="pyb_standby"></block>
 			<block type="pyb_hid"></block>
+			<block type="pyb_main"></block>
+			<block type="pyb_sync"></block>
+			<block type="pyb_set_repl_uart"></block>
+			<block type="pyb_get_repl_uart"></block>
 			<block type="pyb_have_cdc"></block>
 			<block type="pyb_millis"></block>
 			<block type="pyb_micros"></block>
 			<block type="pyb_elapsed_millis"></block>
 			<block type="pyb_elapsed_micros"></block>
+			<block type="pyb_rng"></block>
+			<block type="pyb_unique_id"></block>
+		</category>
+		<category name="Accelerometer">
+			<block type="accel_create"></block>
+
 		</category>
 	</xml>
 

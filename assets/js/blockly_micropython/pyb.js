@@ -245,32 +245,192 @@ Blockly.Python['pyb_have_cdc'] = function(block) {
 // set HID
 // https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#z7g3ok
 Blockly.Blocks['pyb_hid'] = {
-  init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(180);
-    this.appendDummyInput()
-        .appendField("Set HID,");
-    this.appendValueInput("button")
-        .appendField("button");
-    this.appendValueInput("x")
-        .appendField("x");
-    this.appendValueInput("y")
-        .appendField("y");
-    this.appendValueInput("z")
-        .appendField("z");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip('Takes a 4-tuple (or list) and sends it to the USB host (the PC) to signal a HID mouse-motion event.');
-  }
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(180);
+		this.appendDummyInput()
+				.appendField("Set HID,");
+		this.appendValueInput("button")
+				.appendField("button");
+		this.appendValueInput("x")
+				.appendField("x");
+		this.appendValueInput("y")
+				.appendField("y");
+		this.appendValueInput("z")
+				.appendField("z");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true);
+		this.setNextStatement(true);
+		this.setTooltip('Takes a 4-tuple (or list) and sends it to the USB host (the PC) to signal a HID mouse-motion event.');
+	}
 };
 
 Blockly.Python['pyb_hid'] = function(block) {
-  var value_button = Blockly.Python.valueToCode(block, 'button', Blockly.Python.ORDER_ATOMIC);
-  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
-  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
-  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'pyb.USB_HID().send((' +value_button+ ',' +value_x+ ',' +value_y+ ',' +value_z+ '))\n';
-  return code;
+	var value_button = Blockly.Python.valueToCode(block, 'button', Blockly.Python.ORDER_ATOMIC);
+	var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+	var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+	var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.USB_HID().send((' +value_button+ ',' +value_x+ ',' +value_y+ ',' +value_z+ '))\n';
+	return code;
+};
+
+// freq()
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#y332hq
+// Blockly.Blocks['pyb_freq'] = {
+//   init: function() {
+//     this.setHelpUrl('http://www.example.com/');
+//     this.setColour(180);
+//     this.appendDummyInput()
+//         .appendField("Frequency");
+//     this.appendValueInput("sysclk")
+//         .appendField("sysclk");
+//     this.appendValueInput("hclk")
+//         .appendField("hclk");
+//     this.appendValueInput("pclk1")
+//         .appendField("pclk1");
+//     this.appendValueInput("pclk2")
+//         .appendField("pclk2");
+//     this.setInputsInline(true);
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//     this.setTooltip('Sets the frequency of the CPU. If given no arguments, returns a tuple of clock frequencies.');
+//   }
+// };
+// Blockly.Python['pyb_freq'] = function(block) {
+//   var value_sysclk = Blockly.Python.valueToCode(block, 'sysclk', Blockly.Python.ORDER_ATOMIC);
+//   var value_hclk = Blockly.Python.valueToCode(block, 'hclk', Blockly.Python.ORDER_ATOMIC);
+//   var value_pclk1 = Blockly.Python.valueToCode(block, 'pclk1', Blockly.Python.ORDER_ATOMIC);
+//   var value_pclk2 = Blockly.Python.valueToCode(block, 'pclk2', Blockly.Python.ORDER_ATOMIC);
+//   // TODO: Assemble Python into code variable.
+//   var code = '';
+//   if(value_sysclk != ''){
+//   	code = 'pyb.freq(['+value_sysclk+'])\n';
+
+// 	  if(value_hclk != ''){
+// 	  	code = 'pyb.freq(['+value_sysclk+'])\n';
+// 	  }
+//   } 
+//   && value_hclk == '' && value_pclk1 == '')
+//   return code;
+// };
+
+// main()
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#qi8pf2
+Blockly.Blocks['pyb_main'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(180);
+		this.appendDummyInput()
+				.appendField("Set main file")
+				.appendField(new Blockly.FieldTextInput("main.py"), "filename");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true);
+		this.setNextStatement(true);
+		this.setTooltip('Set the filename of the main script to run after boot.py is finished. It only makes sense to call this function from within boot.py.');
+	}
+};
+Blockly.Python['pyb_main'] = function(block) {
+	var text_filename = block.getFieldValue('filename');
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.main('+ text_filename +')\n';
+	return code;
+};
+
+// repl_uart()
+Blockly.Blocks['pyb_set_repl_uart'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(180);
+		this.appendDummyInput()
+				.appendField("Set REPL UART")
+				.appendField(new Blockly.FieldVariable("uart"), "uart");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true);
+		this.setNextStatement(true);
+		this.setTooltip('Set the UART object that the REPL is repeated on.');
+	}
+};
+
+Blockly.Python['pyb_set_repl_uart'] = function(block) {
+	var variable_uart = Blockly.Python.variableDB_.getName(block.getFieldValue('uart'), Blockly.Variables.NAME_TYPE);
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.repl_uart('+variable_uart+')\n';
+	return code;
+};
+
+Blockly.Blocks['pyb_get_repl_uart'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(150);
+		this.appendDummyInput()
+				.appendField("Get REPL UART");
+		this.setInputsInline(true);
+		this.setOutput(true);
+		this.setTooltip('Get the UART object that the REPL is repeated on.');
+	}
+};
+Blockly.Python['pyb_get_repl_uart'] = function(block) {
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.repl_uart()';
+	// TODO: Change ORDER_NONE to the correct strength.
+	return [code, Blockly.Python.ORDER_NONE];
+};
+
+// rng()
+Blockly.Blocks['pyb_rng'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(150);
+		this.appendDummyInput()
+				.appendField("Get random number");
+		this.setInputsInline(true);
+		this.setOutput(true);
+		this.setTooltip('Return a 30-bit hardware generated random number.');
+	}
+};
+Blockly.Python['pyb_rng'] = function(block) {
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.rng()';
+	// TODO: Change ORDER_NONE to the correct strength.
+	return [code, Blockly.Python.ORDER_NONE];
+};
+
+//sync
+Blockly.Blocks['pyb_sync'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(180);
+		this.appendDummyInput()
+				.appendField("Sync file systems");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true);
+		this.setNextStatement(true);
+		this.setTooltip('Sync all file systems.');
+	}
+};
+
+Blockly.Python['pyb_sync'] = function(block) {
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.sync()\n';
+	return code;
+};
+
+//unique_id
+Blockly.Blocks['pyb_unique_id'] = {
+	init: function() {
+		this.setHelpUrl('http://www.example.com/');
+		this.setColour(150);
+		this.appendDummyInput()
+				.appendField("Get unique ID");
+		this.setInputsInline(true);
+		this.setOutput(true);
+		this.setTooltip('Returns a string of 12 bytes (96 bits), which is the unique ID for the MCU.');
+	}
+};
+
+Blockly.Python['pyb_unique_id'] = function(block) {
+	// TODO: Assemble Python into code variable.
+	var code = 'pyb.unique_id()';
+	return code;
 };
