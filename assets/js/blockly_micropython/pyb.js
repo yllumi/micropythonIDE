@@ -1,28 +1,3 @@
-// LED
-// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#54384w
-
-Blockly.Blocks['pyb_led'] = {
-	init: function() {
-		this.setHelpUrl('http://www.example.com/');
-		this.setColour(180);
-		this.appendDummyInput()
-				.appendField("Turn LED")
-				.appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"]]), "lednum")
-				.appendField(new Blockly.FieldDropdown([["ON", "on"], ["OFF", "off"], ["TOGGLE", "toggle"]]), "ledturn");
-		this.setPreviousStatement(true);
-		this.setNextStatement(true);
-		this.setTooltip('Create an LED object associated with the given LED on pyboard');
-	}
-};
-
-Blockly.Python['pyb_led'] = function(block) {
-	var dropdown_lednum = block.getFieldValue('lednum');
-	var dropdown_ledturn = block.getFieldValue('ledturn');
-	// TODO: Assemble Python into code variable.
-	var code = 'pyb.LED(' + dropdown_lednum + ').'+ dropdown_ledturn +'()\n';
-	return code;
-};
-
 // Delay
 // https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#bg4uoe
 Blockly.Blocks['pyb_delay'] = {

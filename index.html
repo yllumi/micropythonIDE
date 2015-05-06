@@ -27,7 +27,10 @@
 
 	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
+	<script src="assets/js/blockly_micropython/led.js"></script>
 	<script src="assets/js/blockly_micropython/accel.js"></script>
+	<script src="assets/js/blockly_micropython/pin.js"></script>
+	<script src="assets/js/blockly_micropython/servo.js"></script>
 	<script src="vendor/blockly/msg/js/en.js"></script>
 
 </head>
@@ -113,30 +116,8 @@
 	</div>
 
 	<xml id="toolbox" style="display: none">
-				<category name="Lists">
-			<block type="lists_create_empty"></block>
-			<block type="lists_create_with"></block>
-			<block type="lists_repeat">
-				<value name="NUM">
-					<block type="math_number">
-						<field name="NUM">5</field>
-					</block>
-				</value>
-			</block>
-			<block type="lists_length"></block>
-			<block type="lists_isEmpty"></block>
-			<block type="lists_indexOf"></block>
-			<block type="lists_getIndex"></block>
-			<block type="lists_setIndex"></block>
-		</category>
-		<category name="Logic">
+		<category name="Logic" id="catLogic">
 			<block type="controls_if"></block>
-			<block type="controls_if">
-				<mutation else="1"></mutation>
-			</block>
-			<block type="controls_if">
-				<mutation elseif="1" else="1"></mutation>
-			</block>			
 			<block type="logic_compare"></block>
 			<block type="logic_operation"></block>
 			<block type="logic_negate"></block>
@@ -144,7 +125,7 @@
 			<block type="logic_null"></block>
 			<block type="logic_ternary"></block>
 		</category>
-		<category name="Loops">
+		<category name="Loops" id="catLoops">
 			<block type="controls_repeat_ext">
 				<value name="TIMES">
 					<block type="math_number">
@@ -154,7 +135,6 @@
 			</block>
 			<block type="controls_whileUntil"></block>
 			<block type="controls_for">
-				<field name="VAR">i</field>
 				<value name="FROM">
 					<block type="math_number">
 						<field name="NUM">1</field>
@@ -174,7 +154,7 @@
 			<block type="controls_forEach"></block>
 			<block type="controls_flow_statements"></block>
 		</category>
-		<category name="Math">
+		<category name="Math" id="catMath">
 			<block type="math_number"></block>
 			<block type="math_arithmetic"></block>
 			<block type="math_single"></block>
@@ -217,13 +197,114 @@
 			</block>
 			<block type="math_random_float"></block>
 		</category>
+		<category name="Texts" id="catText">
+			<block type="text"></block>
+			<block type="text_join"></block>
+			<block type="text_append">
+				<value name="TEXT">
+					<block type="text"></block>
+				</value>
+			</block>
+			<block type="text_length"></block>
+			<block type="text_isEmpty"></block>
+			<block type="text_indexOf">
+				<value name="VALUE">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_charAt">
+				<value name="VALUE">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_getSubstring">
+				<value name="STRING">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_changeCase"></block>
+			<block type="text_trim"></block>
+			<block type="text_print"></block>
+			<block type="text_prompt_ext">
+				<value name="TEXT">
+					<block type="text"></block>
+				</value>
+			</block>
+		</category>
+		
+		<category name="Lists">
+			<block type="lists_create_empty"></block>
+			<block type="lists_create_with"></block>
+			<block type="lists_repeat">
+				<value name="NUM">
+					<block type="math_number">
+						<field name="NUM">5</field>
+					</block>
+				</value>
+			</block>
+			<block type="lists_length"></block>
+			<block type="lists_isEmpty"></block>
+			<block type="lists_indexOf"></block>
+			<block type="lists_getIndex"></block>
+			<block type="lists_setIndex"></block>
+		</category>
 
-		<category name="Variables" custom="VARIABLE"></category>
-		<category name="Functions" custom="PROCEDURE"></category>
+		<category name="Colours" id="catColour">
+			<block type="colour_picker"></block>
+			<block type="colour_random"></block>
+			<block type="colour_rgb">
+				<value name="RED">
+					<block type="math_number">
+						<field name="NUM">100</field>
+					</block>
+				</value>
+				<value name="GREEN">
+					<block type="math_number">
+						<field name="NUM">50</field>
+					</block>
+				</value>
+				<value name="BLUE">
+					<block type="math_number">
+						<field name="NUM">0</field>
+					</block>
+				</value>
+			</block>
+			<block type="colour_blend">
+				<value name="COLOUR1">
+					<block type="colour_picker">
+						<field name="COLOUR">#ff0000</field>
+					</block>
+				</value>
+				<value name="COLOUR2">
+					<block type="colour_picker">
+						<field name="COLOUR">#3333ff</field>
+					</block>
+				</value>
+				<value name="RATIO">
+					<block type="math_number">
+						<field name="NUM">0.5</field>
+					</block>
+				</value>
+			</block>
+		</category>
+
+		<sep></sep>
+		<category name="Variables" id="catVariables" custom="VARIABLE"></category>
+		<category name="Objects">
+			<block type="obj_create"></block>
+			<block type="obj_return"></block>
+			<block type="obj_return_property"></block>
+		</category>
+		<category name="Functions" id="catFunctions" custom="PROCEDURE"></category>
 		<sep></sep>
 
 		<category name="Pyboard">
-			<block type="pyb_led"></block>
 			<block type="pyb_delay"></block>
 			<block type="pyb_hard_reset"></block>
 			<block type="pyb_bootloader"></block>
@@ -243,9 +324,34 @@
 			<block type="pyb_rng"></block>
 			<block type="pyb_unique_id"></block>
 		</category>
+
+		<category name="LED">
+			<block type="led_create_direct"></block>
+			<block type="led_create"></block>
+			<block type="led_set_on"></block>
+			<block type="led_set_off"></block>
+			<block type="led_set_toggle"></block>
+			<block type="led_set_intensity"></block>
+		</category>
+
 		<category name="Accelerometer">
 			<block type="accel_create"></block>
-
+			<block type="accel_x"></block>
+			<block type="accel_y"></block>
+			<block type="accel_z"></block>
+			<block type="accel_tilt"></block>
+		</category>
+		
+		<category name="Pin">
+			<block type="pin_create"></block>
+			<block type="pin_create_simple"></block>
+			<block type="pin_high"></block>
+			<block type="pin_low"></block>
+			<block type="pin_value"></block>
+		</category>
+		
+		<category name="Servo">
+			<block type="servo_create"></block>
 		</category>
 	</xml>
 
