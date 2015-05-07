@@ -25,12 +25,14 @@
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
 
+	<script src="assets/js/blockly_micropython/misc.js"></script>
 	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
 	<script src="assets/js/blockly_micropython/led.js"></script>
 	<script src="assets/js/blockly_micropython/accel.js"></script>
 	<script src="assets/js/blockly_micropython/pin.js"></script>
 	<script src="assets/js/blockly_micropython/servo.js"></script>
+	<script src="assets/js/blockly_micropython/adc.js"></script>
 	<script src="vendor/blockly/msg/js/en.js"></script>
 
 </head>
@@ -253,6 +255,7 @@
 			<block type="lists_indexOf"></block>
 			<block type="lists_getIndex"></block>
 			<block type="lists_setIndex"></block>
+			<block type="list_bytearray"></block>
 		</category>
 
 		<category name="Colours" id="catColour">
@@ -300,6 +303,7 @@
 			<block type="obj_create"></block>
 			<block type="obj_return"></block>
 			<block type="obj_return_property"></block>
+			<block type="obj_call_property"></block>
 		</category>
 		<category name="Functions" id="catFunctions" custom="PROCEDURE"></category>
 		<sep></sep>
@@ -359,6 +363,12 @@
 			<block type="servo_set_pulsewidth"></block>
 			<block type="servo_set_calibration"></block>
 			<block type="servo_get_calibration"></block>
+		</category>
+
+		<category name="ADC">
+			<block type="adc_create"></block>
+			<block type="adc_read"></block>
+			<block type="adc_read_timed"></block>
 		</category>
 	</xml>
 

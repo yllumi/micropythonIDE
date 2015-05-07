@@ -60,15 +60,15 @@ Blockly.Blocks['obj_return_property'] = {
 };
 Blockly.Python['obj_return_property'] = function(block) {
 	var variable_object = Blockly.Python.variableDB_.getName(block.getFieldValue('object'), Blockly.Variables.NAME_TYPE);
-	var value_property = Blockly.Python.valueToCode(block, 'property', Blockly.Python.ORDER_ATOMIC);
+	var value_property = Blockly.Python.valueToCode(block, 'property', Blockly.Python.ORDER_NONE) || '0';
 	// TODO: Assemble Python into code variable.
-	var code = variable_object = '.' + value_property;
+	var code = variable_object + '.' + value_property;
 	// TODO: Change ORDER_NONE to the correct strength.
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
 // set object property
-Blockly.Blocks['obj_return_property'] = {
+Blockly.Blocks['obj_call_property'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(90);
@@ -82,9 +82,9 @@ Blockly.Blocks['obj_return_property'] = {
     this.setTooltip('Set object property or method');
   }
 };
-Blockly.Python['obj_return_property'] = function(block) {
-  var value_property = Blockly.Python.valueToCode(block, 'property', Blockly.Python.ORDER_NONE) || '0';
+Blockly.Python['obj_call_property'] = function(block) {
   var variable_object = Blockly.Python.variableDB_.getName(block.getFieldValue('object'), Blockly.Variables.NAME_TYPE);
+  var value_property = Blockly.Python.valueToCode(block, 'property', Blockly.Python.ORDER_NONE) || '0';
   // TODO: Assemble Python into code variable.
   var code = variable_object + '.' + value_property + '\n';
   return code;
