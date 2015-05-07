@@ -188,7 +188,8 @@ button {
 	bottom: 2px;
 	left: 2px;
 	width: 55%;
-	border: 5px solid #008cba;
+	border: 2px solid #008cba;
+	border-right: 2px solid #008cba;
 }
 .code-content .dropdown-menu {
 	top: 0;
@@ -237,18 +238,30 @@ button {
 .btn-white {
 	color: white;
 }
+
+#separator-bar {
+	display: block;
+	width: 55px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: -4px;
+	z-index: 10;
+	cursor: ew-resize;
+}
 .form-icon-top {
 	position: absolute;
 	top: 0;
-	right: 0;
-	width: 55px;
+	right: 5px;
+	width: 45px;
 	text-align: right;
 	margin-bottom: 0;
+	cursor: pointer;
 }
 .form-icon-bottom {
 	position: absolute;
 	bottom: 0;
-	right: 0;
+	right: 5px;
 	width: 55px;
 	text-align: right;
 	margin-bottom: 0;
@@ -310,7 +323,7 @@ button {
 	width: 45%;
 	top: 45px;
 	bottom: 2px;
-	right: 3px;
+	right: 2px;
 }
 .terminal {
 	position: absolute;
@@ -320,7 +333,8 @@ button {
 	bottom: 0;
 
 	background: rgb(78, 95, 116);
-	border: 5px solid #008cba;
+	border: 2px solid #008cba;
+	border-left: 5px solid #008cba;
 	color: white;
 	padding: 5px;
 	font-family: Courier;

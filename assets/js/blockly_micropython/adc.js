@@ -23,7 +23,7 @@ Blockly.Python['adc_create'] = function(block) {
 Blockly.Blocks['adc_read'] = {
   init: function() {
 	this.setHelpUrl('http://www.example.com/');
-	this.setColour(240);
+	this.setColour(195);
 	this.appendDummyInput()
 		.appendField("read");
 	this.setOutput(true, "property");
@@ -41,7 +41,7 @@ Blockly.Python['adc_read'] = function(block) {
 Blockly.Blocks['adc_read_timed'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(210);
+    this.setColour(195);
     this.appendDummyInput()
         .appendField("read timed, into buffer")
         .appendField(new Blockly.FieldVariable("item"), "buffer")

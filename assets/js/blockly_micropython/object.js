@@ -50,7 +50,8 @@ Blockly.Blocks['obj_return_property'] = {
 		this.setHelpUrl('http://www.example.com/');
 		this.setColour(90);
 		this.appendDummyInput()
-		.appendField(new Blockly.FieldVariable("obj"), "object");
+			.appendField("return")
+			.appendField(new Blockly.FieldVariable("obj"), "object");
 		this.appendValueInput("property")
 		.setCheck("property");
 		this.setInputsInline(true);
@@ -73,6 +74,7 @@ Blockly.Blocks['obj_call_property'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(90);
     this.appendDummyInput()
+    	.appendField("call")
         .appendField(new Blockly.FieldVariable("obj"), "object");
     this.appendValueInput("property")
         .setCheck("property");

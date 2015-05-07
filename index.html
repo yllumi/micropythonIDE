@@ -2,6 +2,7 @@
 	<meta charset="utf-8">
 	<title>Micropython Web IDE</title>
 
+	<!-- styles -->
 	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-yeti.min.css">
 	<link rel="stylesheet" href="assets/fonts/flaticon.mod.css">
 	<link rel="stylesheet" href="assets/css/style.css">
@@ -10,21 +11,25 @@
 	<link rel="stylesheet" href="vendor/codemirror/theme/3024-day.css">
 	<link rel="stylesheet" href="vendor/jcubic/css/jquery.terminal.css">
 
+	<!-- codemirror -->
 	<script src="vendor/codemirror/lib/codemirror.js"></script>
 	<script src="vendor/codemirror/addon/selection/active-line.js"></script>
 	<script src="vendor/codemirror/addon/edit/matchbrackets.js"></script>
 	<script src="vendor/codemirror/mode/python/python.js"></script>
 
+	<!-- jQuery -->
 	<script src="vendor/jquery/jquery-2.1.3.min.js"></script>
 	<script src="vendor/jquery/jquery-migrate-1.2.1.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="vendor/jcubic/js/jquery.terminal-min.js"></script>
 	<script src="vendor/jcubic/js/jquery.mousewheel-min.js"></script>
 
+	<!-- blockly assets -->
 	<script src="vendor/blockly/blockly_compressed.js"></script>
 	<script src="vendor/blockly/blocks_compressed.js"></script>
 	<script src="vendor/blockly/python_compressed.js"></script>
 
+	<!-- micropython blocks -->
 	<script src="assets/js/blockly_micropython/misc.js"></script>
 	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
@@ -33,6 +38,13 @@
 	<script src="assets/js/blockly_micropython/pin.js"></script>
 	<script src="assets/js/blockly_micropython/servo.js"></script>
 	<script src="assets/js/blockly_micropython/adc.js"></script>
+	<script src="assets/js/blockly_micropython/dac.js"></script>
+	<script src="assets/js/blockly_micropython/uart.js"></script>
+	<script src="assets/js/blockly_micropython/spi.js"></script>
+	<script src="assets/js/blockly_micropython/i2c.js"></script>
+	<script src="assets/js/blockly_micropython/pwm.js"></script>
+	<script src="assets/js/blockly_micropython/timer.js"></script>
+	<script src="assets/js/blockly_micropython/extint.js"></script>
 	<script src="vendor/blockly/msg/js/en.js"></script>
 
 </head>
@@ -63,39 +75,42 @@
 			<div id="blocklyDiv"></div>
 			<textarea id="blocklyCode" style="display:none"></textarea>
 
-			<!-- middle toolbar -->
-			<div class="form-group form-icon-top">
-				<div class="dropdown">
-					<button href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-xs btn-icon btn-default btn-connect" title="Click and choose port to connect" style="margin-bottom:5px;">
-						<span class="flaticon-disconnected"></span>
+			<div id="separator-bar">
+
+				<!-- middle toolbar -->
+				<div class="form-group form-icon-top">
+					<div class="dropdown">
+						<button href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-xs btn-icon btn-default btn-connect" title="Click and choose port to connect" style="margin-bottom:5px;">
+							<span class="flaticon-disconnected"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation"><a class="serialport" role="menuitem" tabindex="-1" href="#">no port</a></li>
+						</ul>
+					</div>
+
+
+					<button class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
+						<span class="flaticon-python3"></span>
 					</button>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						<li role="presentation"><a class="serialport" role="menuitem" tabindex="-1" href="#">no port</a></li>
-					</ul>
+					<button class="btn btn-xs btn-icon btn-success btn-save" disabled title="save code">
+						<span class="flaticon-save"></span>
+					</button>
+					<button class="btn btn-xs btn-icon btn-success btn-showcode" title="save code">show code
+					</button>
+					<button class="btn btn-xs btn-icon btn-warning btn-run" disabled title="run program">
+						<span class="flaticon-run"></span>
+					</button>
 				</div>
 
-
-				<button class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
-					<span class="flaticon-python3"></span>
-				</button>
-				<button class="btn btn-xs btn-icon btn-success btn-save" disabled title="save code">
-					<span class="flaticon-save"></span>
-				</button>
-				<button class="btn btn-xs btn-icon btn-success btn-showcode" title="save code">show code
-				</button>
-				<button class="btn btn-xs btn-icon btn-warning btn-run" disabled title="run program">
-					<span class="flaticon-run"></span>
-				</button>
-			</div>
-
-			<!-- output panel tab -->
-			<div class="form-group form-icon-bottom">
-				<button href="#" class="btn btn-xs btn-icon btn-output btn-info btn-repl" title="text output">
-					<span class="flaticon-repl"></span>
-				</button>
-				<button href="#" class="btn btn-xs btn-icon btn-output btn-default btn-bar" title="bar output">
-					<span class="flaticon-bar"></span>
-				</button>
+				<!-- output panel tab -->
+				<div class="form-group form-icon-bottom">
+					<button href="#" class="btn btn-xs btn-icon btn-output btn-info btn-repl" title="text output">
+						<span class="flaticon-repl"></span>
+					</button>
+					<button href="#" class="btn btn-xs btn-icon btn-output btn-default btn-bar" title="bar output">
+						<span class="flaticon-bar"></span>
+					</button>
+				</div>
 			</div>
 
 		</div>

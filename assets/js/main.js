@@ -137,7 +137,7 @@ $(function(){
 	}, {
 		greetings: 'Welcome to Micropython Web IDE',
 		name: 'upython_terminal',
-		height: 70 + "%",
+		height: 76 + "%",
 		exit: false,
 		prompt: ''
 	});
@@ -265,12 +265,26 @@ editor.on("change", function(cm, changeObj) {
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-Blockly.inject(document.getElementById('blocklyDiv'),
-	  {toolbox: document.getElementById('toolbox')});
+Blockly.inject(document.getElementById('blocklyDiv'), {
+	grid: {
+		spacing: 25,
+		length: 3,
+		colour: '#ccc',
+		snap: true
+	},
+	toolbox: document.getElementById('toolbox')
+});
 
 $('#blocklyDiv').css('z-index', -1);
 
 function blocklyUpdate() {
 	latestCode = Blockly.Python.workspaceToCode();
+	var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+	chrome.storage.local.set({'blockStorage': xml});
 }
 Blockly.addChangeListener(blocklyUpdate);
+
+chrome.storage.local.get('blockStorage', function(result){
+	var xml = Blockly.Xml.textToDom(result.blockStorage);
+	Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
+});
