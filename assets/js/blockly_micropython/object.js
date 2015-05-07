@@ -3,7 +3,7 @@
 Blockly.Blocks['obj_create'] = {
 	init: function() {
 		this.setHelpUrl('http://www.example.com/');
-		this.setColour(315);
+		this.setColour(90);
 		this.appendDummyInput()
 				.appendField("set")
 				.appendField(new Blockly.FieldVariable("obj"), "object")
@@ -28,7 +28,7 @@ Blockly.Python['obj_create'] = function(block) {
 Blockly.Blocks['obj_return'] = {
 	init: function() {
 		this.setHelpUrl('http://www.example.com/');
-		this.setColour(315);
+		this.setColour(90);
 		this.appendDummyInput()
 				.appendField(new Blockly.FieldVariable("obj"), "object");
 		this.setInputsInline(true);
@@ -48,7 +48,7 @@ Blockly.Python['obj_return'] = function(block) {
 Blockly.Blocks['obj_return_property'] = {
 	init: function() {
 		this.setHelpUrl('http://www.example.com/');
-		this.setColour(315);
+		this.setColour(90);
 		this.appendDummyInput()
 		.appendField(new Blockly.FieldVariable("obj"), "object");
 		this.appendValueInput("property")
@@ -71,7 +71,7 @@ Blockly.Python['obj_return_property'] = function(block) {
 Blockly.Blocks['obj_return_property'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(315);
+    this.setColour(90);
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable("obj"), "object");
     this.appendValueInput("property")
