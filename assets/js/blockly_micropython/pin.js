@@ -1,3 +1,21 @@
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#frfjnd
+Blockly.Blocks['import_pin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Gunakan Pin");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(240);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['import_pin'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'from pyb import Pin\n';
+  return code;
+};
+
 // create pin object
 // https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#zgb7xo
 Blockly.Blocks['pin_create'] = {
@@ -5,7 +23,7 @@ Blockly.Blocks['pin_create'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("Pin Object")
+        .appendField("Objek Pin")
         .appendField(new Blockly.FieldDropdown([["X1", "'X1'"], ["X2", "'X2'"], ["X3", "'X3'"], ["X4", "'X4'"], ["X5", "'X5'"], ["X6", "'X6'"], ["X7", "'X7'"], ["X8", "'X8'"], ["X9", "'X9'"], ["X10", "'X10'"], ["X11", "'X11'"], ["X12", "'X12'"], ["X17", "'X17'"], ["X18", "'X18'"], ["X19", "'X19'"], ["X20", "'X20'"], ["X21", "'X21'"], ["X22", "'X22'"], ["Y1", "'Y1'"], ["Y2", "'Y2'"], ["Y3", "'Y3'"], ["Y4", "'Y4'"], ["Y5", "'Y5'"], ["Y6", "'Y6'"], ["Y7", "'Y7'"], ["Y8", "'Y8'"], ["Y9", "'Y9'"], ["Y10", "'Y10'"], ["Y11", "'Y11'"], ["Y12", "'Y12'"]]), "pin_id")
         .appendField("mode")
         .appendField(new Blockly.FieldDropdown([["IN", "pyb.Pin.IN"], ["OUT_PP", "pyb.Pin.OUT_PP"], ["OUT_OD", "pyb.Pin.OUT_OD"], ["AF_PP", "pyb.Pin.AF_PP"], ["AF_OD", "pyb.Pin.AF_OD"], ["ANALOG", "pyb.Pin.ANALOG"]]), "pin_mode")
@@ -35,7 +53,7 @@ Blockly.Blocks['pin_create_simple'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("Pin Object")
+        .appendField("Objek Pin")
         .appendField(new Blockly.FieldDropdown([["X1", "'X1'"], ["X2", "'X2'"], ["X3", "'X3'"], ["X4", "'X4'"], ["X5", "'X5'"], ["X6", "'X6'"], ["X7", "'X7'"], ["X8", "'X8'"], ["X9", "'X9'"], ["X10", "'X10'"], ["X11", "'X11'"], ["X12", "'X12'"], ["X17", "'X17'"], ["X18", "'X18'"], ["X19", "'X19'"], ["X20", "'X20'"], ["X21", "'X21'"], ["X22", "'X22'"], ["Y1", "'Y1'"], ["Y2", "'Y2'"], ["Y3", "'Y3'"], ["Y4", "'Y4'"], ["Y5", "'Y5'"], ["Y6", "'Y6'"], ["Y7", "'Y7'"], ["Y8", "'Y8'"], ["Y9", "'Y9'"], ["Y10", "'Y10'"], ["Y11", "'Y11'"], ["Y12", "'Y12'"]]), "pin_id");
     this.setInputsInline(true);
     this.setOutput(true, "object");
@@ -57,7 +75,7 @@ Blockly.Blocks['pin_high'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(30);
     this.appendDummyInput()
-        .appendField("set high");
+        .appendField("set HIGH");
     this.setOutput(true, "property");
     this.setTooltip('Set the pin to a high logic level');
   }
@@ -75,7 +93,7 @@ Blockly.Blocks['pin_low'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(30);
     this.appendDummyInput()
-        .appendField("set low");
+        .appendField("set LOW");
     this.setOutput(true, "property");
     this.setTooltip('Set the pin to a low logic level');
   }
@@ -93,7 +111,7 @@ Blockly.Blocks['pin_value'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(30);
     this.appendDummyInput()
-        .appendField("get value");
+        .appendField("ambil nilainya");
     this.setOutput(true, "property");
     this.setTooltip('Get pin value');
   }

@@ -3,11 +3,11 @@
 Blockly.Blocks['pyb_delay'] = {
 	init: function() {
 		this.setHelpUrl('http://www.example.com/');
-		this.setColour(180);
+		this.setColour(Blockly.Blocks.texts.HUE);
 		this.appendDummyInput()
-				.appendField("Delay")
+				.appendField("Jeda")
 				.appendField(new Blockly.FieldTextInput("1000"), "delay_value")
-				.appendField(new Blockly.FieldDropdown([["milliseconds", "ms"], ["microseconds", "us"]]), "delay_unit");
+				.appendField(new Blockly.FieldDropdown([["milidetik", "ms"], ["mikrodetik", "us"]]), "delay_unit");
 		this.setPreviousStatement(true);
 		this.setNextStatement(true);
 		this.setTooltip('Delay for the given number of milliseconds or microseconds.');

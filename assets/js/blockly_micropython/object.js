@@ -5,9 +5,9 @@ Blockly.Blocks['obj_create'] = {
 		this.setHelpUrl('http://www.example.com/');
 		this.setColour(90);
 		this.appendDummyInput()
-				.appendField("set")
+				.appendField("Set")
 				.appendField(new Blockly.FieldVariable("obj"), "object")
-				.appendField("to");
+				.appendField("dengan");
 		this.appendValueInput("object")
 				.setCheck("object");
 		this.setInputsInline(true);
@@ -50,7 +50,7 @@ Blockly.Blocks['obj_return_property'] = {
 		this.setHelpUrl('http://www.example.com/');
 		this.setColour(90);
 		this.appendDummyInput()
-			.appendField("return")
+			.appendField("Ambil")
 			.appendField(new Blockly.FieldVariable("obj"), "object");
 		this.appendValueInput("property")
 		.setCheck("property");
@@ -74,7 +74,7 @@ Blockly.Blocks['obj_call_property'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(90);
     this.appendDummyInput()
-    	.appendField("call")
+    	.appendField("Panggil")
         .appendField(new Blockly.FieldVariable("obj"), "object");
     this.appendValueInput("property")
         .setCheck("property");

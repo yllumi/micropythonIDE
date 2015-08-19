@@ -272,7 +272,7 @@ Blockly.inject(document.getElementById('blocklyDiv'), {
 		colour: '#ccc',
 		snap: true
 	},
-	toolbox: document.getElementById('toolbox')
+	toolbox: document.getElementById('toolbox-beginner')
 });
 
 $('#blocklyDiv').css('z-index', -1);

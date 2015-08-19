@@ -30,6 +30,7 @@
 	<script src="vendor/blockly/python_compressed.js"></script>
 
 	<!-- micropython blocks -->
+	<script src="assets/js/blockly_micropython/common.js"></script>
 	<script src="assets/js/blockly_micropython/misc.js"></script>
 	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
@@ -45,8 +46,8 @@
 	<script src="assets/js/blockly_micropython/pwm.js"></script>
 	<script src="assets/js/blockly_micropython/timer.js"></script>
 	<script src="assets/js/blockly_micropython/extint.js"></script>
-	<script src="vendor/blockly/msg/js/en.js"></script>
-
+	<!--<script src="vendor/blockly/msg/js/en.js"></script>-->
+	<script src="vendor/blockly/msg/js/id.js"></script>
 </head>
 <body>
 
@@ -132,17 +133,38 @@
 		</div>
 	</div>
 
-	<xml id="toolbox" style="display: none">
-		<category name="Logic" id="catLogic">
+	<xml id="toolbox-beginner" style="display: none">
+		<category name="Umum" id="catCommon">
+			<block type="setup"></block>
+			<block type="controls_while_true"></block>
+			<block type="text_print"></block>
+			<block type="pyb_delay"></block>
+			<block type="digital_read"></block>
+			<block type="digital_write"></block>
+		</category>
+
+		<sep></sep>
+		
+		<category name="Variabel" id="catVariables" custom="VARIABLE"></category>
+		<category name="Objek">
+			<block type="obj_create"></block>
+			<block type="obj_return_property"></block>
+			<block type="obj_call_property"></block>
+			<block type="obj_return"></block>
+		</category>
+		<category name="Fungsi" id="catFunctions" custom="PROCEDURE"></category>
+
+		<sep></sep>
+		<category name="Logika" id="catLogic">
 			<block type="controls_if"></block>
 			<block type="logic_compare"></block>
 			<block type="logic_operation"></block>
 			<block type="logic_negate"></block>
 			<block type="logic_boolean"></block>
 			<block type="logic_null"></block>
-			<block type="logic_ternary"></block>
 		</category>
-		<category name="Loops" id="catLoops">
+		<category name="Perulangan" id="catLoops">
+			<block type="controls_whileUntil"></block>
 			<block type="controls_repeat_ext">
 				<value name="TIMES">
 					<block type="math_number">
@@ -150,7 +172,6 @@
 					</block>
 				</value>
 			</block>
-			<block type="controls_whileUntil"></block>
 			<block type="controls_for">
 				<value name="FROM">
 					<block type="math_number">
@@ -171,7 +192,7 @@
 			<block type="controls_forEach"></block>
 			<block type="controls_flow_statements"></block>
 		</category>
-		<category name="Math" id="catMath">
+		<category name="Perhitungan" id="catMath">
 			<block type="math_number"></block>
 			<block type="math_arithmetic"></block>
 			<block type="math_single"></block>
@@ -214,7 +235,204 @@
 			</block>
 			<block type="math_random_float"></block>
 		</category>
-		<category name="Texts" id="catText">
+		<category name="Teks" id="catText">
+			<block type="text_print"></block>
+			<block type="text"></block>
+			<block type="text_join"></block>
+			<block type="text_append">
+				<value name="TEXT">
+					<block type="text"></block>
+				</value>
+			</block>
+			<block type="text_length"></block>
+			<block type="text_isEmpty"></block>
+			<block type="text_indexOf">
+				<value name="VALUE">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_charAt">
+				<value name="VALUE">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_getSubstring">
+				<value name="STRING">
+					<block type="variables_get">
+						<field name="VAR" class="textVar">...</field>
+					</block>
+				</value>
+			</block>
+			<block type="text_changeCase"></block>
+			<block type="text_trim"></block>
+			<block type="text_prompt_ext">
+				<value name="TEXT">
+					<block type="text"></block>
+				</value>
+			</block>
+		</category>
+
+		<sep></sep>
+
+		<category name="LED">
+			<block type="import_led"></block>
+			<block type="led_create_direct"></block>
+			<block type="led_create"></block>
+			<block type="led_set_on"></block>
+			<block type="led_set_off"></block>
+			<block type="led_set_toggle"></block>
+			<block type="led_set_intensity"></block>
+		</category>
+
+		<category name="Accelerometer">
+			<block type="import_accel"></block>
+			<block type="accel_create"></block>
+			<block type="accel_x"></block>
+			<block type="accel_y"></block>
+			<block type="accel_z"></block>
+			<block type="accel_tilt"></block>
+		</category>
+		
+		<category name="Pin">
+			<block type="import_pin"></block>
+			<block type="pin_create_simple"></block>
+			<block type="pin_create"></block>
+			<block type="pin_high"></block>
+			<block type="pin_low"></block>
+			<block type="pin_value"></block>
+		</category>
+		
+		<category name="Servo">
+			<block type="import_servo"></block>
+			<block type="servo_create"></block>
+			<block type="servo_set_angle"></block>
+			<block type="servo_get_angle"></block>
+			<block type="servo_set_speed"></block>
+			<block type="servo_get_speed"></block>
+			<block type="servo_set_pulsewidth"></block>
+			<block type="servo_set_calibration"></block>
+			<block type="servo_get_calibration"></block>
+		</category>
+
+		<category name="Analog ke Digital">
+			<block type="import_adc"></block>
+			<block type="adc_create"></block>
+			<block type="adc_read"></block>
+			<block type="adc_read_timed"></block>
+		</category>
+
+		<sep></sep>
+
+		<category name="Pyboard">
+			<block type="pyb_delay"></block>
+			<block type="pyb_hard_reset"></block>
+			<block type="pyb_bootloader"></block>
+			<block type="pyb_wfi"></block>
+			<block type="pyb_stop"></block>
+			<block type="pyb_standby"></block>
+			<block type="pyb_hid"></block>
+			<block type="pyb_main"></block>
+			<block type="pyb_sync"></block>
+			<block type="pyb_set_repl_uart"></block>
+			<block type="pyb_get_repl_uart"></block>
+			<block type="pyb_have_cdc"></block>
+			<block type="pyb_millis"></block>
+			<block type="pyb_micros"></block>
+			<block type="pyb_elapsed_millis"></block>
+			<block type="pyb_elapsed_micros"></block>
+			<block type="pyb_rng"></block>
+			<block type="pyb_unique_id"></block>
+		</category>
+	</xml>
+
+	<!--
+	<xml id="toolbox-advance" style="display: none">
+		<category name="Logika" id="catLogic">
+			<block type="controls_if"></block>
+			<block type="logic_compare"></block>
+			<block type="logic_operation"></block>
+			<block type="logic_negate"></block>
+			<block type="logic_boolean"></block>
+			<block type="logic_null"></block>
+			<block type="logic_ternary"></block>
+		</category>
+		<category name="Perulangan" id="catLoops">
+			<block type="controls_repeat_ext">
+				<value name="TIMES">
+					<block type="math_number">
+						<field name="NUM">10</field>
+					</block>
+				</value>
+			</block>
+			<block type="controls_whileUntil"></block>
+			<block type="controls_for">
+				<value name="FROM">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+				<value name="TO">
+					<block type="math_number">
+						<field name="NUM">10</field>
+					</block>
+				</value>
+				<value name="BY">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+			</block>
+			<block type="controls_forEach"></block>
+			<block type="controls_flow_statements"></block>
+		</category>
+		<category name="Perhitungan" id="catMath">
+			<block type="math_number"></block>
+			<block type="math_arithmetic"></block>
+			<block type="math_single"></block>
+			<block type="math_trig"></block>
+			<block type="math_constant"></block>
+			<block type="math_number_property"></block>
+			<block type="math_change">
+				<value name="DELTA">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+			</block>
+			<block type="math_round"></block>
+			<block type="math_on_list"></block>
+			<block type="math_modulo"></block>
+			<block type="math_constrain">
+				<value name="LOW">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+				<value name="HIGH">
+					<block type="math_number">
+						<field name="NUM">100</field>
+					</block>
+				</value>
+			</block>
+			<block type="math_random_int">
+				<value name="FROM">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+				<value name="TO">
+					<block type="math_number">
+						<field name="NUM">100</field>
+					</block>
+				</value>
+			</block>
+			<block type="math_random_float"></block>
+		</category>
+		<category name="Teks" id="catText">
 			<block type="text"></block>
 			<block type="text_join"></block>
 			<block type="text_append">
@@ -255,7 +473,7 @@
 			</block>
 		</category>
 		
-		<category name="Lists">
+		<category name="List">
 			<block type="lists_create_empty"></block>
 			<block type="lists_create_with"></block>
 			<block type="lists_repeat">
@@ -273,54 +491,15 @@
 			<block type="list_bytearray"></block>
 		</category>
 
-		<category name="Colours" id="catColour">
-			<block type="colour_picker"></block>
-			<block type="colour_random"></block>
-			<block type="colour_rgb">
-				<value name="RED">
-					<block type="math_number">
-						<field name="NUM">100</field>
-					</block>
-				</value>
-				<value name="GREEN">
-					<block type="math_number">
-						<field name="NUM">50</field>
-					</block>
-				</value>
-				<value name="BLUE">
-					<block type="math_number">
-						<field name="NUM">0</field>
-					</block>
-				</value>
-			</block>
-			<block type="colour_blend">
-				<value name="COLOUR1">
-					<block type="colour_picker">
-						<field name="COLOUR">#ff0000</field>
-					</block>
-				</value>
-				<value name="COLOUR2">
-					<block type="colour_picker">
-						<field name="COLOUR">#3333ff</field>
-					</block>
-				</value>
-				<value name="RATIO">
-					<block type="math_number">
-						<field name="NUM">0.5</field>
-					</block>
-				</value>
-			</block>
-		</category>
-
 		<sep></sep>
-		<category name="Variables" id="catVariables" custom="VARIABLE"></category>
-		<category name="Objects">
+		<category name="Variabel" id="catVariables" custom="VARIABLE"></category>
+		<category name="Objek">
 			<block type="obj_create"></block>
 			<block type="obj_return"></block>
 			<block type="obj_return_property"></block>
 			<block type="obj_call_property"></block>
 		</category>
-		<category name="Functions" id="catFunctions" custom="PROCEDURE"></category>
+		<category name="Fungsi" id="catFunctions" custom="PROCEDURE"></category>
 		<sep></sep>
 
 		<category name="Pyboard">
@@ -380,12 +559,13 @@
 			<block type="servo_get_calibration"></block>
 		</category>
 
-		<category name="ADC">
+		<category name="Analog ke Digital">
 			<block type="adc_create"></block>
 			<block type="adc_read"></block>
 			<block type="adc_read_timed"></block>
 		</category>
 	</xml>
+	-->
 
 	<div class="messages">
 		<div class="successMsg">Pesan sukses.</div>

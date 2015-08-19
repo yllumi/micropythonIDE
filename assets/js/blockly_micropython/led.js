@@ -1,3 +1,21 @@
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#frfjnd
+Blockly.Blocks['import_led'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Gunakan LED");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(240);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['import_led'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'from pyb import LED\n';
+  return code;
+};
+
 // LED Object Create
 //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#6bmo5k
 Blockly.Blocks['led_create_direct'] = {
@@ -6,9 +24,8 @@ Blockly.Blocks['led_create_direct'] = {
     this.setColour(255);
     this.appendDummyInput()
         .appendField("LED")
-        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"]]), "lednum");
-    this.appendValueInput("property")
-        .setCheck("property");
+        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"]]), "lednum")
+        .appendField(new Blockly.FieldDropdown([["Nyala", "on"], ["Mati", "off"], ["Nyala-Mati", "toggle"]]), "ledmode");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -17,9 +34,9 @@ Blockly.Blocks['led_create_direct'] = {
 };
 Blockly.Python['led_create_direct'] = function(block) {
   var dropdown_lednum = block.getFieldValue('lednum');
-  var value_property = Blockly.Python.valueToCode(block, 'property', Blockly.Python.ORDER_NONE) || '0';
+  var dropdown_ledmode = block.getFieldValue('ledmode');
   // TODO: Assemble Python into code variable.
-  var code = 'pyb.LED(' + dropdown_lednum + ').' + value_property + '\n';
+  var code = 'pyb.LED(' + dropdown_lednum + ').' + dropdown_ledmode + '()\n';
   return code;
 };
 
@@ -30,7 +47,7 @@ Blockly.Blocks['led_create'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(255);
 	this.appendDummyInput()
-		.appendField("LED Object")
+		.appendField("Objek LED")
 		.appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"]]), "lednum");
 	this.setInputsInline(true);
 	this.setOutput(true, "object");
@@ -51,7 +68,7 @@ Blockly.Blocks['led_set_intensity'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(285);
     this.appendDummyInput()
-        .appendField("set intensity to")
+        .appendField("set intensitas ke")
         .appendField(new Blockly.FieldTextInput("0"), "intensity")
         .appendField("/255");
     this.setInputsInline(true);
@@ -73,7 +90,7 @@ Blockly.Blocks['led_set_on'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(285);
     this.appendDummyInput()
-        .appendField("set on");
+        .appendField("nyalakan");
     this.setOutput(true, "property");
     this.setTooltip('Set LED on');
   }
@@ -91,7 +108,7 @@ Blockly.Blocks['led_set_off'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(285);
     this.appendDummyInput()
-        .appendField("set off");
+        .appendField("matikan");
     this.setOutput(true, "property");
     this.setTooltip('Set LED off');
   }
@@ -109,7 +126,7 @@ Blockly.Blocks['led_set_toggle'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(285);
     this.appendDummyInput()
-        .appendField("set toggle");
+        .appendField("nyalakan/matikan");
     this.setOutput(true, "property");
     this.setTooltip('Set LED toggle');
   }

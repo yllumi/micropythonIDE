@@ -1,3 +1,21 @@
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#frfjnd
+Blockly.Blocks['import_accel'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Gunakan Accelerometer");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(240);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['import_accel'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'from pyb import Accel\n';
+  return code;
+};
+
 // Accelerometer
 // https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#nimoyg
 Blockly.Blocks['accel_create'] = {
@@ -5,7 +23,7 @@ Blockly.Blocks['accel_create'] = {
 		this.setHelpUrl('http://www.example.com/');
 		this.setColour(225);
 		this.appendDummyInput()
-				.appendField("Accelerometer Object");
+				.appendField("Objek Accelerometer");
 		this.setInputsInline(true);
 		this.setOutput(true, "object");
 		this.setTooltip('Create and return an accelerometer object.');
@@ -24,7 +42,7 @@ Blockly.Blocks['accel_x'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(210);
     this.appendDummyInput()
-        .appendField("get x-axis");
+        .appendField("ambil nilai x-axis");
     this.setOutput(true, "property");
     this.setTooltip('Get accel x');
   }
@@ -42,7 +60,7 @@ Blockly.Blocks['accel_y'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(210);
     this.appendDummyInput()
-        .appendField("get y-axis");
+        .appendField("ambil nilai y-axis");
     this.setOutput(true, "property");
     this.setTooltip('Get accel y');
   }
@@ -60,7 +78,7 @@ Blockly.Blocks['accel_z'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(210);
     this.appendDummyInput()
-        .appendField("get z-axis");
+        .appendField("ambil nilai z-axis");
     this.setOutput(true, "property");
     this.setTooltip('Get accel z');
   }
@@ -78,7 +96,7 @@ Blockly.Blocks['accel_tilt'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(210);
     this.appendDummyInput()
-        .appendField("get tilt register");
+        .appendField("ambil tilt register");
     this.setOutput(true, "property");
     this.setTooltip('Get accel tilt register');
   }

@@ -1,3 +1,21 @@
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#frfjnd
+Blockly.Blocks['import_servo'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Gunakan Servo");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(240);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['import_servo'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'from pyb import Servo\n';
+  return code;
+};
+
 // Servo Object Create
 // https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#rw5nqw
 Blockly.Blocks['servo_create'] = {
@@ -5,7 +23,7 @@ Blockly.Blocks['servo_create'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(255);
 	this.appendDummyInput()
-		.appendField("Servo Object")
+		.appendField("Objek Servo pada pin")
 		.appendField(new Blockly.FieldDropdown([["X1", "1"], ["X2", "2"], ["X3", "3"], ["X4", "4"]]), "servonum");
 	this.setInputsInline(true);
 	this.setOutput(true, "object");
@@ -27,11 +45,11 @@ Blockly.Blocks['servo_set_angle'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(240);
 	this.appendDummyInput()
-		.appendField("set angle")
+		.appendField("set sudut")
 		.appendField(new Blockly.FieldAngle("0"), "angle")
-		.appendField("for")
+		.appendField("selama")
 		.appendField(new Blockly.FieldTextInput("0"), "time")
-		.appendField("milliseconds");
+		.appendField("milisekon");
 	this.setInputsInline(true);
 	this.setOutput(true, "property");
 	this.setTooltip('Set servo angle. Usually works at 90 to -90 degrees');
@@ -56,7 +74,7 @@ Blockly.Blocks['servo_get_angle'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(240);
 	this.appendDummyInput()
-		.appendField("get angle");
+		.appendField("ambil nilai sudutnya");
 	this.setOutput(true, "Number");
 	this.setTooltip('Get current servo angle.');
   }
@@ -75,11 +93,11 @@ Blockly.Blocks['servo_set_speed'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(240);
     this.appendDummyInput()
-        .appendField("set speed")
+        .appendField("set kecepatan")
         .appendField(new Blockly.FieldTextInput("0"), "speed")
-        .appendField("for")
+        .appendField("% selama")
         .appendField(new Blockly.FieldTextInput("0"), "time")
-        .appendField("milliseconds");
+        .appendField("milisekon");
     this.setInputsInline(true);
     this.setOutput(true, "property");
     this.setTooltip('Set servo angle. Works at -100 to 100.');
@@ -103,7 +121,7 @@ Blockly.Blocks['servo_get_speed'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(240);
 	this.appendDummyInput()
-		.appendField("get speed");
+		.appendField("ambil nilai kecepatannya");
 	this.setOutput(true, "Number");
 	this.setTooltip('Get current servo speed.');
   }
@@ -121,7 +139,7 @@ Blockly.Blocks['servo_get_pulsewidth'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(240);
 	this.appendDummyInput()
-		.appendField("get pulse width");
+		.appendField("ambil panjang pulsanya");
 	this.setOutput(true, "Number");
 	this.setTooltip('Get current raw pulse width.');
   }
@@ -139,7 +157,7 @@ Blockly.Blocks['servo_set_pulsewidth'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(240);
     this.appendDummyInput()
-        .appendField("set pulse width to")
+        .appendField("set panjang pulsa ke")
         .appendField(new Blockly.FieldTextInput("0"), "pulsewidth");
     this.setInputsInline(true);
     this.setOutput(true, "property");
@@ -160,7 +178,7 @@ Blockly.Blocks['servo_set_calibration'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(240);
     this.appendDummyInput()
-        .appendField("set calibration");
+        .appendField("set kalibrasi");
     this.appendValueInput("pulse_min")
         .setCheck("Number")
         .appendField("pulse_min");
@@ -206,8 +224,8 @@ Blockly.Blocks['servo_get_calibration'] = {
 	this.setHelpUrl('http://www.example.com/');
 	this.setColour(240);
 	this.appendDummyInput()
-		.appendField("get calibration");
-	this.setOutput(true, "Number");
+		.appendField("ambil nilai kalibrasinya");
+  this.setOutput(true, "Number");
 	this.setTooltip('Get current servo calibration.');
   }
 };
