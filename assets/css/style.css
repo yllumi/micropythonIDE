@@ -245,9 +245,9 @@ button {
 	height: 100%;
 	position: absolute;
 	top: 0;
-	right: -4px;
 	z-index: 10;
 	cursor: ew-resize;
+	background: #008CBA;
 }
 .form-icon-top {
 	position: absolute;
@@ -352,7 +352,7 @@ button {
 	bottom: 0;
 
 	background-color: #eee;
-	border: 5px solid #008cba;
+	border: 2px solid #008cba;
 	padding: 5px;
 }
 .bar .progress {

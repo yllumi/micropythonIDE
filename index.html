@@ -70,12 +70,13 @@
 
 		<div class="code-content">
 			<!-- code editor -->
+
 			<div id="code-editor">
 				<textarea id="thecode" name="thecode" style="width:100%;height:100%"></textarea>
 			</div>
 			
 			<!-- blockly editor -->
-			<div id="blocklyDiv"></div>
+			<div id="blocklyDiv" style="position: absolute"></div>
 			<textarea id="blocklyCode" style="display:none"></textarea>
 
 			<div id="separator-bar">
@@ -586,6 +587,7 @@
 		<div class="errorMsg">Pesan error.</div>
 	</div>
 
+	<script src="vendor/draggabilly/draggabilly.pkgd.min.js"></script>
 	<script src="assets/js/serial.js"></script>
 	<!-- <script src="assets/js/file.js"></script> -->
 	<script src="assets/js/main.js"></script>

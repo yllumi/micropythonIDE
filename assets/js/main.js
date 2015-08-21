@@ -125,7 +125,34 @@ $(document).off('click', '.serialport').on('click', '.serialport', function() {
 ////////////////////// LISTENERS ///////////////////////
 ////////////////////////////////////////////////////////
 
+$(window).resize(function(){
+	// set separator first position
+	$('#separator-bar').css('left', (parseInt($('.code-content').width()) - 50) + 'px');
+	$('.output-panel').width($('.wrapper').width() - parseInt($('.code-content').width()));
+
+    // Position blocklyDiv over code-content
+    $('#blocklyDiv').width($('.code-content').width() - 50);
+})
 $(function(){
+	// 	RESIZE COLUMNS
+	var $separator = $('#separator-bar').draggabilly({
+		axis: 'x',
+		containment: '.wrapper'
+	})
+	var draggie = $separator.data('draggabilly');
+	
+	$separator.on('dragStart', function(){
+		$(this).css({'opacity':0.3});
+	})
+	$separator.on('dragEnd', function() {
+		$(this).css({'opacity':1});
+		$('.code-content').width(draggie.position.x + 50);
+		$('.output-panel').width($('.wrapper').width() - draggie.position.x - 50);
+	    $('#blocklyDiv').width($('.code-content').width() - 50);
+	    // hack resize effect to normalize blockly width
+	    window.resizeTo($(window).width(), $(window).height()-1);
+	})
+
 	// JCUBIC JQUERY TERMINAL
 	terminal = $('.terminal').terminal(
 	function(command, term) {
@@ -276,7 +303,7 @@ Blockly.inject(document.getElementById('blocklyDiv'), {
 	grid: {
 		spacing: 25,
 		length: 3,
-		colour: '#ccc',
+		colour: '#fff',
 		snap: true
 	},
 	toolbox: document.getElementById('toolbox-beginner')
