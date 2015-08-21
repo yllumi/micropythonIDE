@@ -3,7 +3,7 @@
 var terminal;
 var dontLog = false;
 var mode = 'code';
-var latestCode;
+var latestCode = "";
 
 var chosenEntry = null;
 var codeChanged = false;
@@ -172,13 +172,16 @@ $(function(){
 		}
 
 		var blob = latestCode.replace(/\n/g, "\\n");
+		blob = blob.replace(/"/g, "\\\"");
 
 		dontLog = true;
 		connection.send("import os\r\n");
 		connection.send("f = open('/flash/main.py', 'w')\r\n");
-		connection.send("f.write(str('"+blob+"'))\r\n");
+		connection.send("f.write(str(\""+blob+"\"))\r\n");
 		connection.send("f.close()\r\n");
 		connection.send("os.sync()\r\n");
+
+		console.log(t);
 
 		successMsg('File saved.');
 		codeChanges(false);
@@ -241,6 +244,12 @@ $(function(){
 
 	// when SHOWCODE BUTTON clicked
 	$(document).off('click', '.btn-showcode').on('click', '.btn-showcode', function(){
+		if(mode != 'block'){
+			latestCode = editor.getValue();
+		} else {
+			blocklyUpdate();
+		}
+
 		console.log(latestCode);
 	});
 
