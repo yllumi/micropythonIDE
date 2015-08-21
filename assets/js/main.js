@@ -146,7 +146,10 @@ $(function(){
 	})
 	$separator.on('dragEnd', function() {
 		$(this).css({'opacity':1});
-		$('.code-content').width(draggie.position.x + 50);
+		if(draggie.position.x > 135)
+			$('.code-content').width(draggie.position.x + 50);
+		else
+			$('.code-content').width(185);
 		$('.output-panel').width($('.wrapper').width() - draggie.position.x - 50);
 	    $('#blocklyDiv').width($('.code-content').width() - 50);
 	    // hack resize effect to normalize blockly width
