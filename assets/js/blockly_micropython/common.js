@@ -22,7 +22,7 @@ Blockly.Blocks['controls_while_true'] = {
         .appendField("Jalankan terus");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(240);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }

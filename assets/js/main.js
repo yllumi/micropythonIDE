@@ -181,8 +181,6 @@ $(function(){
 		connection.send("f.close()\r\n");
 		connection.send("os.sync()\r\n");
 
-		console.log(t);
-
 		successMsg('File saved.');
 		codeChanges(false);
 	});
