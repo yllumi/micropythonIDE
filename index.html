@@ -34,6 +34,7 @@
 	<script src="assets/js/blockly_micropython/misc.js"></script>
 	<script src="assets/js/blockly_micropython/object.js"></script>
 	<script src="assets/js/blockly_micropython/pyb.js"></script>
+	<script src="assets/js/blockly_micropython/switch.js"></script>
 	<script src="assets/js/blockly_micropython/led.js"></script>
 	<script src="assets/js/blockly_micropython/accel.js"></script>
 	<script src="assets/js/blockly_micropython/pin.js"></script>
@@ -48,6 +49,8 @@
 	<script src="assets/js/blockly_micropython/extint.js"></script>
 	<script src="assets/js/blockly_micropython/potensiometer.js"></script>
 	<script src="assets/js/blockly_micropython/ultrasonic.js"></script>
+	<script src="assets/js/blockly_micropython/lcd.js"></script>
+	<script src="assets/js/blockly_micropython/bluetooth.js"></script>
 	<!--<script src="vendor/blockly/msg/js/en.js"></script>-->
 	<script src="vendor/blockly/msg/js/id.js"></script>
 </head>
@@ -198,20 +201,20 @@
 		<category name="Perhitungan" id="catMath">
 			<block type="math_number"></block>
 			<block type="math_arithmetic"></block>
+			<block type="math_round"></block>
+			<block type="math_modulo"></block>
 			<block type="math_single"></block>
 			<block type="math_trig"></block>
 			<block type="math_constant"></block>
 			<block type="math_number_property"></block>
-			<block type="math_change">
+			<!-- <block type="math_change">
 				<value name="DELTA">
 					<block type="math_number">
 						<field name="NUM">1</field>
 					</block>
 				</value>
 			</block>
-			<block type="math_round"></block>
 			<block type="math_on_list"></block>
-			<block type="math_modulo"></block>
 			<block type="math_constrain">
 				<value name="LOW">
 					<block type="math_number">
@@ -223,7 +226,7 @@
 						<field name="NUM">100</field>
 					</block>
 				</value>
-			</block>
+			</block> -->
 			<block type="math_random_int">
 				<value name="FROM">
 					<block type="math_number">
@@ -236,20 +239,20 @@
 					</block>
 				</value>
 			</block>
-			<block type="math_random_float"></block>
+			<!-- <block type="math_random_float"></block> -->
 		</category>
 		<category name="Teks" id="catText">
-			<block type="text_print"></block>
 			<block type="text"></block>
+			<block type="text_print"></block>
 			<block type="text_join"></block>
-			<block type="text_append">
+			<!-- <block type="text_append">
 				<value name="TEXT">
 					<block type="text"></block>
 				</value>
-			</block>
+			</block> -->
 			<block type="text_length"></block>
 			<block type="text_isEmpty"></block>
-			<block type="text_indexOf">
+			<!-- <block type="text_indexOf">
 				<value name="VALUE">
 					<block type="variables_get">
 						<field name="VAR" class="textVar">...</field>
@@ -276,10 +279,14 @@
 				<value name="TEXT">
 					<block type="text"></block>
 				</value>
-			</block>
+			</block> -->
 		</category>
 
 		<sep></sep>
+
+		<category name="Switch">
+			<block type="switch"></block>
+		</category>
 
 		<category name="LED">
 			<block type="import_led"></block>
@@ -290,7 +297,7 @@
 			<block type="led_set_toggle"></block>
 			<block type="led_set_intensity"></block>
 		</category>
-
+		
 		<category name="Accelerometer">
 			<block type="import_accel"></block>
 			<block type="accel_create"></block>
@@ -298,15 +305,6 @@
 			<block type="accel_y"></block>
 			<block type="accel_z"></block>
 			<block type="accel_tilt"></block>
-		</category>
-		
-		<category name="Pin">
-			<block type="import_pin"></block>
-			<block type="pin_create_simple"></block>
-			<block type="pin_create"></block>
-			<block type="pin_high"></block>
-			<block type="pin_low"></block>
-			<block type="pin_value"></block>
 		</category>
 		
 		<category name="Servo">
@@ -319,13 +317,6 @@
 			<block type="servo_set_pulsewidth"></block>
 			<block type="servo_set_calibration"></block>
 			<block type="servo_get_calibration"></block>
-		</category>
-
-		<category name="Analog ke Digital">
-			<block type="import_adc"></block>
-			<block type="adc_create"></block>
-			<block type="adc_read"></block>
-			<block type="adc_read_timed"></block>
 		</category>
 		
 		<category name="Potensiometer">
@@ -340,6 +331,42 @@
 			<block type="ultrasonic_get_inches"></block>
 		</category>
 
+		<category name="LCD">
+			<block type="import_lcd"></block>
+			<block type="import_lcd_ext"></block>
+			<block type="lcd_clear"></block>
+			<block type="lcd_write"></block>
+			<block type="lcd_write_char"></block>
+			<block type="lcd_newline"></block>
+			<block type="lcd_moveto"></block>
+			<block type="lcd_backlight"></block>
+			<block type="lcd_display"></block>
+			<block type="lcd_cursor"></block>
+			<block type="lcd_blink_cursor"></block>
+		</category>
+
+		<category name="Bluetooth">
+			<block type="import_bt"></block>
+			<block type="repl_bt"></block>
+			<block type="bt_readchar"></block>
+		</category>
+
+		<category name="Analog ke Digital">
+			<block type="import_adc"></block>
+			<block type="adc_create"></block>
+			<block type="adc_read"></block>
+			<block type="adc_read_timed"></block>
+		</category>
+
+		<category name="Pin">
+			<block type="import_pin"></block>
+			<block type="pin_create_simple"></block>
+			<block type="pin_create"></block>
+			<block type="pin_high"></block>
+			<block type="pin_low"></block>
+			<block type="pin_value"></block>
+		</category>
+		
 		<sep></sep>
 
 		<category name="Pyboard">

@@ -132,6 +132,10 @@ $(window).resize(function(){
 
     // Position blocklyDiv over code-content
     $('#blocklyDiv').width($('.code-content').width() - 50);
+
+    // prevent resize over separator
+    if($(window).width() < $('.code-content').width())
+    	window.resizeTo($('.code-content').width() + 10, $(window).height());
 })
 $(function(){
 	// 	RESIZE COLUMNS
