@@ -306,7 +306,7 @@ Blockly.inject(document.getElementById('blocklyDiv'), {
 	grid: {
 		spacing: 25,
 		length: 3,
-		colour: '#fff',
+		colour: '#eee',
 		snap: true
 	},
 	toolbox: document.getElementById('toolbox-beginner')
