@@ -1,7 +1,7 @@
 Blockly.Blocks['switch'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Tombol switch ditekan");
+        .appendField("Tombol switch USR ditekan");
     this.setOutput(true);
     this.setColour(210);
     this.setTooltip('');

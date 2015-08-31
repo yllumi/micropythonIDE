@@ -96,8 +96,8 @@
 					</div>
 
 
-					<button class="btn btn-xs btn-icon btn-default btn-codemode" title="switch to python mode">
-						<span class="flaticon-python3"></span>
+					<button class="btn btn-xs btn-icon btn-default btn-blockmode" title="switch to python mode">
+						<span class="flaticon-blockly"></span>
 					</button>
 					<button class="btn btn-xs btn-icon btn-success btn-save" disabled title="save code">
 						<span class="flaticon-save"></span>
@@ -145,6 +145,8 @@
 			<block type="controls_while_true"></block>
 			<block type="text_print"></block>
 			<block type="pyb_delay"></block>
+			<block type="switch"></block>
+			<block type="led_create_direct"></block>
 			<block type="digital_read"></block>
 			<block type="digital_write"></block>
 		</category>
@@ -288,15 +290,17 @@
 			<block type="switch"></block>
 		</category>
 
+		<!-- 
 		<category name="LED">
-			<block type="import_led"></block>
 			<block type="led_create_direct"></block>
+			<block type="import_led"></block>
 			<block type="led_create"></block>
 			<block type="led_set_on"></block>
 			<block type="led_set_off"></block>
 			<block type="led_set_toggle"></block>
 			<block type="led_set_intensity"></block>
 		</category>
+		-->
 		
 		<category name="Accelerometer">
 			<block type="import_accel"></block>
@@ -612,6 +616,25 @@
 	<div class="messages">
 		<div class="successMsg">Pesan sukses.</div>
 		<div class="errorMsg">Pesan error.</div>
+	</div>
+
+	<!-- Small modal -->
+	<div id="myPrompt" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Buat variabel</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						
+					<input type="text" class="form-control" id="myVar">
+					<button class="btn btn-sm" id="myBtn">Create</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script src="vendor/draggabilly/draggabilly.pkgd.min.js"></script>

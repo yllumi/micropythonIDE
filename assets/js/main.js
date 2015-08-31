@@ -2,7 +2,7 @@
 /////////////// GLOBAL VARIABLES /////////////////////
 var terminal;
 var dontLog = false;
-var mode = 'code';
+var mode = 'block';
 var latestCode = "";
 
 var chosenEntry = null;
@@ -17,6 +17,12 @@ var textarea = '#thecode';
 
 //////////////////////////////////////////////////////
 /////////////// COMMON FUNCTIONS /////////////////////
+
+// set default editor
+if(mode == 'block')
+	$('#code-editor').css('z-index', -1);
+else
+	$('#blocklyDiv').css('z-index', -1);
 
 function errorHandler(e) {
 	console.error(e);
@@ -34,6 +40,18 @@ function codeChanges(isChange)
 	}
 
 }
+
+function myPrompt(obj)
+{
+	$('#myPrompt').modal('show');
+	console.log("opened");
+	obj.setValue("myvars");
+}
+
+$('#myPrompt').on('hidden.bs.modal', function (e) {
+	console.log("closed");
+	return "myvar";
+})
 
 function log(msg) {
 	terminal.echo(msg);
@@ -315,8 +333,6 @@ Blockly.inject(document.getElementById('blocklyDiv'), {
 	},
 	toolbox: document.getElementById('toolbox-beginner')
 });
-
-$('#blocklyDiv').css('z-index', -1);
 
 function blocklyUpdate() {
 	latestCode = Blockly.Python.workspaceToCode();
